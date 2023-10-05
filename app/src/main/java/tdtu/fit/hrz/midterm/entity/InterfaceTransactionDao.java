@@ -3,11 +3,12 @@ import androidx.annotation.NonNull;
 
 import java.util.List;
 
+/**
+ * Define the behaviors the transaction DAO, including getting,
+ * adding, deleting transaction, so on...
+ */
 public interface InterfaceTransactionDao {
-    /*
-    Define the behaviors the transaction DAO, including getting,
-    adding, deleting transaction, so on...
-     */
+
 //  GETTERS
     default Transaction getSingleTransaction() {
         return getSingleTransaction(0);
