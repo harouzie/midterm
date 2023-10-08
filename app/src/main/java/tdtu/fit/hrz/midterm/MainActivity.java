@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -18,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonSelectDate;
     private TextView selectedDate;
     private DatePickerDialog datePickerDialog;
-
+    private FloatingActionButton fab;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         buttonSelectDate = findViewById(R.id.changeDateButton);
         selectedDate = findViewById(R.id.selectedDate);
+        fab = findViewById(R.id.fab);
 
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -38,6 +42,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Hiển thị DatePickerDialog khi người dùng nhấn vào nút
                 datePickerDialog.show();
+            }
+        });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Let's add some transaction", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
     }
