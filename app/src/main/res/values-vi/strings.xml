@@ -8,4 +8,5 @@
     <string name="dateSelect">Đổi</string>
     <string name="expenses">Tổng chi tiêu:</string>
     <string name="expListTitle">Danh sách chi tiêu:</string>
+    <string name="dd_mm_yyyy">dd:mm:yyyy</string>
 </resources>
