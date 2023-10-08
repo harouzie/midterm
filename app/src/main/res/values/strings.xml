@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">midterm</string>
+    <string name="infoTitle">Expenses Information</string>
+    <string name="monthInfo">This month expenses:</string>
+    <string name="dateInfoTitle">Expenses by date:</string>
+    <string name="selectedDateTitle">Date:</string>
+    <string name="dateSelect">Change</string>
+    <string name="selectedDate" translatable="false">MM/DD/YYYY</string>
+    <string name="expenses">Total expenses:</string>
+    <string name="expListTitle">List of expenses:</string>
 </resources>
