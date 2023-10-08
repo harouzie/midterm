@@ -1,6 +1,8 @@
 package tdtu.fit.hrz.midterm;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -8,35 +10,52 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+
+import tdtu.fit.hrz.midterm.entity.Transaction;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button buttonSelectDate;
     private TextView selectedDate;
     private DatePickerDialog datePickerDialog;
+    private RecyclerView mRecyclerView;
+    private TransactionListAdapter mTransactionAdapter;
     private FloatingActionButton fab;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //====FIND VIEW====================================================
         buttonSelectDate = findViewById(R.id.changeDateButton);
         selectedDate = findViewById(R.id.selectedDate);
+        mRecyclerView = findViewById(R.id.expListOnDate);
         fab = findViewById(R.id.fab);
 
+        //====INITIALIZE ===================================================
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         datePickerDialog = new DatePickerDialog(this, dateSetListener, year, month, day);
 
+        //====TESTING, playground is here bois=========================================
+        ArrayList<Transaction> transactions = addSyntheticTransaction(10);
+        mTransactionAdapter = new TransactionListAdapter(this, transactions);
+        mRecyclerView.setAdapter(mTransactionAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+        //====CLICK LISTENER SETTING========================================
         buttonSelectDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,5 +81,15 @@ public class MainActivity extends AppCompatActivity {
             selectedDate.setText(date);
         }
     };
+
+//  TESTING SECTION=================================================
+//  i write some function serving testing sake over here /hrz
+    private ArrayList<Transaction> addSyntheticTransaction(int num){
+        ArrayList<Transaction> trs = new ArrayList<>();
+        for (int n = 0; n < num; n++) {
+            trs.add(new Transaction());
+        }
+        return trs;
+    }
 
 }
