@@ -8,4 +8,5 @@
     <string name="selectedDate" translatable="false">MM/DD/YYYY</string>
     <string name="expenses">Total expenses:</string>
     <string name="expListTitle">List of expenses:</string>
+    <string name="dd_mm_yyyy">dd:mm:yyyy</string>
 </resources>
