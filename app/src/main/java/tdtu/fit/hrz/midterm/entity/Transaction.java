@@ -13,6 +13,8 @@ public class Transaction {
     private SimpleDateFormat dateFormat;
     private Date spentDate;
     private TransactionCategory category;
+    public StringBuilder note;
+
 //   todo: add note, and image like receive or bill
     public Transaction() {
         this.transactionId = staticTransactionId + 1;
@@ -20,7 +22,7 @@ public class Transaction {
         spentDate = new Date();
         category = TransactionCategory.GENERAL_FEE;
         staticTransactionId +=1;
-        dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+        dateFormat = new SimpleDateFormat("EEEE, dd/MM/yyyy");
     }
 
     public Transaction(TransactionCategory category, int spentAmount){
@@ -28,6 +30,10 @@ public class Transaction {
         this.category = category;
         this.spentAmount =spentAmount;
     }
+
+    //==========================================================================
+    //====SETTERS GETTERS           ===========================================
+    //==========================================================================
 
     public int getSpentAmount() {
         return spentAmount;

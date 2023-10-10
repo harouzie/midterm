@@ -143,13 +143,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/expListOnDate"
+        android:background="@android:color/darker_gray"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_below="@id/expListOnDateTitle"
         android:layout_above="@id/toolbar"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp">
     </androidx.recyclerview.widget.RecyclerView>
 

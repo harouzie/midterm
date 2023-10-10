@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -55,7 +56,15 @@ public class MainActivity extends AppCompatActivity {
         mTransactionAdapter = new TransactionListAdapter(this, transactions, R.layout.transaction_cardview);
         mRecyclerView.setAdapter(mTransactionAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        fab.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Toast.makeText(
+                        MainActivity.this,
+                        "Long click detected", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
 
 
         //====CLICK LISTENER SETTING========================================

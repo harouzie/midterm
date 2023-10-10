@@ -17,6 +17,7 @@ public class TransactionDAO implements InterfaceTransactionDao{
     private int dataSize = 0;
     private final static Random random = new Random(127343342);
     private final static int numCategory = TransactionCategory.values().length; // number of cate
+    //=======================================================================
     private TransactionDAO(int dataSize) {
         transactionList = addSyntheticTransaction(dataSize);
         this.dataSize = dataSize;
@@ -32,7 +33,7 @@ public class TransactionDAO implements InterfaceTransactionDao{
     public ArrayList<Transaction> getTransactionList() {
         return transactionList;
     }
-
+    //=======================================================================
     private ArrayList<Transaction> addSyntheticTransaction(int num){
         ArrayList<Transaction> trs = new ArrayList<>();
         int amount;
@@ -46,7 +47,11 @@ public class TransactionDAO implements InterfaceTransactionDao{
         }
         return trs;
     }
+    //=======================================================================
+//    FILTERER
 
+
+    //=======================================================================
     @Override
     public Transaction getSingleTransaction(int transactionId) {
         return InterfaceTransactionDao.super.getSingleTransaction(transactionId);
