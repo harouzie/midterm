@@ -1,16 +1,15 @@
 package tdtu.fit.hrz.midterm.entity;
 import androidx.annotation.NonNull;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Currency;
 import java.util.Date;
 
 public class Transaction {
     private static int staticTransactionId = 0;
-    private final int transactionId;
+    private int transactionId ;
     private Currency currency;
-    private float spentAmount = 0.0f;
+    private int spentAmount = 0;
     private SimpleDateFormat dateFormat;
     private Date spentDate;
     private TransactionCategory category;
@@ -24,8 +23,13 @@ public class Transaction {
         dateFormat = new SimpleDateFormat("dd/mm/yyyy");
     }
 
+    public Transaction(TransactionCategory category, int spentAmount){
+        this();
+        this.category = category;
+        this.spentAmount =spentAmount;
+    }
 
-    public float getSpentAmount() {
+    public int getSpentAmount() {
         return spentAmount;
     }
     //================================================
@@ -53,6 +57,10 @@ public class Transaction {
     //================================================
     public Currency getCurrency() {
         return currency;
+    }
+
+    public String getCurrencyCode() {
+        return currency.getCurrencyCode();
     }
     public void setCurrency(Currency currency) {
         this.currency = currency;

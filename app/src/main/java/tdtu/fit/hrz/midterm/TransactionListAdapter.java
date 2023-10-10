@@ -69,7 +69,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
 
         public void update(Transaction transaction) {
             transaction_cate.setText(String.format("%s", transaction.getCategory()));
-            transaction_amount.setText(String.format("%.2f", transaction.getSpentAmount()));
+            transaction_amount.setText(String.format("%d", transaction.getSpentAmount()));
             transaction_currency.setText(String.format("%s", transaction.getCurrency().getCurrencyCode()));
             transaction_date.setText(String.format("%s", transaction.getSpentDateString()));
         }

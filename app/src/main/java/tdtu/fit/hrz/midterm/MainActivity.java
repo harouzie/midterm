@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import tdtu.fit.hrz.midterm.entity.Transaction;
+import tdtu.fit.hrz.midterm.entity.TransactionDAO;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,8 +48,10 @@ public class MainActivity extends AppCompatActivity {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         datePickerDialog = new DatePickerDialog(this, dateSetListener, year, month, day);
 
+        TransactionDAO transactionDAO = TransactionDAO.getInstance(100);
         //====TESTING, playground is here bois=========================================
-        ArrayList<Transaction> transactions = addSyntheticTransaction(10);
+
+        ArrayList<Transaction> transactions = transactionDAO.getTransactionList();
         mTransactionAdapter = new TransactionListAdapter(this, transactions, R.layout.transaction_cardview);
         mRecyclerView.setAdapter(mTransactionAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -84,12 +87,5 @@ public class MainActivity extends AppCompatActivity {
 
 //  TESTING SECTION=================================================
 //  i write some function serving testing sake over here /hrz
-    private ArrayList<Transaction> addSyntheticTransaction(int num){
-        ArrayList<Transaction> trs = new ArrayList<>();
-        for (int n = 0; n < num; n++) {
-            trs.add(new Transaction());
-        }
-        return trs;
-    }
 
 }
