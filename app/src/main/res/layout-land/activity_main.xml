@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id='@+id/headerLayout'
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/timeTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="DD/MM/YYYY hh:mm"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/infoTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="7"
+            android:gravity="center"
+            android:text="@string/infoTitle"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <!--
+    TODO:  set up weighted layout so that all the info aligned
+    -->
+    <TextView
+        android:id="@+id/thisMonthExpInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/headerLayout"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:text="@string/monthInfo"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <!-- TODO: /hrz I think this should change to average spent amount  -->
+    <TextView
+        android:id="@+id/dateExpInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/thisMonthExpInfo"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:text="@string/dateInfoTitle"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/dateLayout"
+        android:layout_below="@id/dateExpInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
+
+        <TextView
+            android:id="@+id/pickedDateTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/selectedDateTitle"
+            android:textSize="22sp"
+            android:textStyle="italic"
+            android:layout_weight="2" />
+
+        <TextView
+            android:id="@+id/selectedDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/selectedDate"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            android:layout_weight="4" />
+
+        <!--TODO: what the purpose of adding date here? -->
+        <Button
+            android:id="@+id/changeDateButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="5dp"
+            android:text="@string/dateSelect"
+            android:textSize="14sp"
+            android:maxLines="1"
+            android:layout_weight="2" />
+
+        <TextView
+            android:id="@+id/expOnDateTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/expenses"
+            android:textSize="22sp"
+            android:textStyle="italic"
+            android:layout_weight="4" />
+
+        <TextView
+            android:id="@+id/expOnDateValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="320.000 VND"
+            android:textSize="25sp"
+            android:textStyle="italic"
+            android:gravity="center"
+            android:layout_weight="7" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/expListOnDateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dateLayout"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/expListTitle"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        android:gravity="center" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/expListOnDate"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_below="@id/expListOnDateTitle"
+        android:layout_above="@id/toolbar"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp">
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_alignParentBottom="true"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_fab"
+        app:rippleColor="@color/black"
+        android:layout_above="@id/toolbar"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="end|bottom"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="add new transaction"
+        app:fabSize="auto" />
+</RelativeLayout>
