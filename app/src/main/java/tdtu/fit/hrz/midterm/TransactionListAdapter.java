@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,15 +23,17 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
     private static ArrayList<Transaction> mTransactionList;
     private final LayoutInflater mInflater;
     private Context context;
-    public TransactionListAdapter(Context context, ArrayList<Transaction> transactions){
+    private int resourceID;
+    public TransactionListAdapter(Context context, ArrayList<Transaction> transactions, int resourceID){
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
         mTransactionList = transactions;
+        this.resourceID = resourceID;
     }
     @NonNull
     @Override
     public TransactionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View mItemView = mInflater.inflate(R.layout.transactionlist_item,parent, false);
+        View mItemView = mInflater.inflate(this.resourceID,parent, false);
         return new TransactionViewHolder(mItemView, this);
     }
 
@@ -47,27 +50,28 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
 
     public class TransactionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         final TransactionListAdapter mAdapter;
-        TextView money_row;
-        TextView category_row;
-        TextView currency_row;
-        TextView date_row;
+        ImageView icon;
+        TextView transaction_cate;
+        TextView transaction_amount;
+        TextView transaction_date;
+        TextView transaction_currency;
 
 
         public TransactionViewHolder(@NonNull View itemView, TransactionListAdapter transactionListAdapter) {
             super(itemView);
             mAdapter = transactionListAdapter;
-            money_row = itemView.findViewById(R.id.money_row);
-            category_row = itemView.findViewById(R.id.category_row);
-            currency_row = itemView.findViewById(R.id.currency_row);
-            date_row = itemView.findViewById(R.id.date_row);
+            transaction_cate = itemView.findViewById(R.id.transaction_category);
+            transaction_amount = itemView.findViewById(R.id.transaction_amount);
+            transaction_date = itemView.findViewById(R.id.transaction_date);
+            transaction_currency = itemView.findViewById(R.id.transaction_currency);
             itemView.setOnClickListener(this);
         }
 
         public void update(Transaction transaction) {
-            money_row.setText(String.format("%.2f", transaction.getSpentAmount()));
-            category_row.setText(String.format("%s", transaction.getCategory()));
-            currency_row.setText(String.format("%s", transaction.getCurrency().getCurrencyCode()));
-            date_row.setText(String.format("%s", transaction.getSpentDate().toString()));
+            transaction_cate.setText(String.format("%s", transaction.getCategory()));
+            transaction_amount.setText(String.format("%.2f", transaction.getSpentAmount()));
+            transaction_currency.setText(String.format("%s", transaction.getCurrency().getCurrencyCode()));
+            transaction_date.setText(String.format("%s", transaction.getSpentDateString()));
         }
 
         @Override

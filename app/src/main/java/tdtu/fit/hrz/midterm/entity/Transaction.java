@@ -11,7 +11,7 @@ public class Transaction {
     private final int transactionId;
     private Currency currency;
     private float spentAmount = 0.0f;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd.mm.yyyy");
+    private SimpleDateFormat dateFormat;
     private Date spentDate;
     private TransactionCategory category;
 //   todo: add note, and image like receive or bill
@@ -21,6 +21,7 @@ public class Transaction {
         spentDate = new Date();
         category = TransactionCategory.GENERAL_FEE;
         staticTransactionId +=1;
+        dateFormat = new SimpleDateFormat("dd/mm/yyyy");
     }
 
 

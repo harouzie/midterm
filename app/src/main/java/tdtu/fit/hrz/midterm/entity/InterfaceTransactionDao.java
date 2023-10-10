@@ -10,11 +10,6 @@ import java.util.List;
 public interface InterfaceTransactionDao {
 
 //  GETTERS
-    default Transaction getSingleTransaction() {
-        return getSingleTransaction(0);
-    }
-
-//  GETTERS
     default Transaction getSingleTransaction(int transactionId) {
         return null;
     }

@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         //====TESTING, playground is here bois=========================================
         ArrayList<Transaction> transactions = addSyntheticTransaction(10);
-        mTransactionAdapter = new TransactionListAdapter(this, transactions);
+        mTransactionAdapter = new TransactionListAdapter(this, transactions, R.layout.transaction_cardview);
         mRecyclerView.setAdapter(mTransactionAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 

@@ -10,23 +10,18 @@ import java.util.List;
  * Database for querying ana statistical screen
  * implement Singleton, DAO pattern
  */
-public class MyDatabase implements InterfaceTransactionDao{
-    private static MyDatabase instance;
+public class TransactionDAO implements InterfaceTransactionDao{
+    private static TransactionDAO instance;
     private static ArrayList<Transaction> transactionList;
-    private MyDatabase() {
+    private TransactionDAO() {
         transactionList = new ArrayList<>();
     }
 
-    public static MyDatabase getInstance() {
+    public static TransactionDAO getInstance() {
         if(instance == null) {
-            instance = new MyDatabase();
+            instance = new TransactionDAO();
         }
         return instance;
-    }
-
-    @Override
-    public Transaction getSingleTransaction() {
-        return InterfaceTransactionDao.super.getSingleTransaction();
     }
 
     @Override
