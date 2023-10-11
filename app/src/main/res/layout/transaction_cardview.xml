@@ -22,7 +22,7 @@
                 android:src="@android:mipmap/sym_def_app_icon"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="8dp"
                 android:layout_centerVertical="true"/>
 
             <TextView
