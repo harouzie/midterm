@@ -18,7 +18,7 @@ public class TransactionDAO implements InterfaceTransactionDao{
     private int dataSize = 0;
     private static Random random;
     private static int numCategory;
-    //================================An=======================================
+    //================================SINGLETON=======================================
     private TransactionDAO(int dataSize) {
         this.dataSize = dataSize;
         random = new Random();
