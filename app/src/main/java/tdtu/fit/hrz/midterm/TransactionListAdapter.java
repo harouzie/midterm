@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import tdtu.fit.hrz.midterm.entity.Transaction;
+import tdtu.fit.hrz.midterm.entity.TransactionCategory;
 
 /**
  *
@@ -74,6 +75,12 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
             transaction_currency.setText(
                     String.format("%s", transaction.getCurrency().getCurrencyCode()));
             transaction_date.setText(String.format("%s", transaction.getSpentDateString()));
+
+            if (TransactionCategory.INCOME_GIFT.equals(transaction.getCategory())
+                    || TransactionCategory.INCOME_SALARY.equals(transaction.getCategory())){
+                transaction_amount.setTextColor(context.getResources().getColor(R.color.green));
+            } else transaction_amount.setTextColor(context.getResources().getColor(R.color.dark_red));
+
         }
 
         @Override
