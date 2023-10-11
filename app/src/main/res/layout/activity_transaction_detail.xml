@@ -24,7 +24,7 @@
             android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="@dimen/cardview_default_elevation"
+            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="8dp">
 
             <RelativeLayout
@@ -52,7 +52,7 @@
 
                 <TextView
                     android:id="@+id/transaction_amount"
-                    android:hint="SPENT AMOUNT"
+                    android:hint="AM"
 
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
@@ -64,18 +64,20 @@
                     android:id="@+id/transaction_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_alignParentEnd="true"
+                    android:layout_below="@id/transaction_category"
                     android:hint="DATE" />
 
                 <TextView
                     android:id="@+id/transaction_currency"
+                    android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/transaction_category"
-                    android:gravity="right"
-                    android:layout_alignParentEnd="true"
-                    android:hint="Currency" />
+                    android:layout_toEndOf="@id/transaction_amount"
+                    android:layout_marginLeft="2dp"
+                    android:gravity="left|center_vertical"
+                    android:hint="CUR" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -84,6 +86,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/transaction_cardview"
+            app:cardBackgroundColor="@color/white"
             android:layout_marginStart="10dp"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="10dp"
@@ -107,12 +110,12 @@
                         android:textSize="16sp"
                         android:textColor="@color/blue"
                         android:textStyle="bold"
-                        android:layout_weight="6"
+                        android:layout_weight="4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"/>
                     <Spinner
                         android:id="@+id/spinnerCate"
-                        android:layout_weight="4"
+                        android:layout_weight="6"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"/>
 
@@ -135,6 +138,7 @@
                         android:layout_height="wrap_content"/>
                     <EditText
                         android:id="@+id/edt_amount"
+                        android:textColor="@color/black"
                         android:inputType="number"
                         android:layout_weight="4"
                         android:layout_width="0dp"
@@ -157,6 +161,7 @@
                         android:layout_height="wrap_content"/>
                     <EditText
                         android:id="@+id/edt_date"
+                        android:textColor="@color/black"
                         android:inputType="date"
                         android:layout_weight="4"
                         android:layout_width="0dp"
@@ -179,6 +184,7 @@
                         android:layout_height="wrap_content"/>
                     <EditText
                         android:id="@+id/edt_time"
+                        android:textColor="@color/black"
                         android:inputType="datetime"
                         android:layout_weight="4"
                         android:layout_width="0dp"
@@ -203,7 +209,7 @@
 
                     <EditText
                         android:id="@+id/edt_note"
-
+                        android:textColor="@color/black"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
 
@@ -221,7 +227,8 @@
                         android:layout_margin="5dp"
                         android:layout_weight="1"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:onClick="deleteTransaction"/>
                     <Button
                         android:id="@+id/btn_save"
                         android:background="@drawable/inner_rounded_panel"
@@ -230,7 +237,8 @@
                         android:layout_margin="5dp"
                         android:layout_weight="1"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:onClick="saveTransaction"/>
                 </LinearLayout>
             </RelativeLayout>
 

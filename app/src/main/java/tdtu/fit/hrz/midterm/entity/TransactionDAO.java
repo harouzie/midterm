@@ -7,6 +7,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
+import tdtu.fit.hrz.midterm.TransactionListAdapter;
+
+// TODO data set changed after update, add, delete
 
 /**
  * Database for querying ana statistical screen
@@ -15,20 +18,19 @@ import java.util.Random;
 public class TransactionDAO implements InterfaceTransactionDao{
     private static TransactionDAO instance;
     private static ArrayList<Transaction> transactionList;
-    private int dataSize = 0;
+    private final int dataSize = 100;
     private static Random random;
-    private static int numCategory;
+    public static int numCategory;
     //================================SINGLETON=======================================
-    private TransactionDAO(int dataSize) {
-        this.dataSize = dataSize;
+    private TransactionDAO() {
         random = new Random();
         numCategory = TransactionCategory.values().length; // number of cate
         transactionList = addSyntheticTransaction(dataSize);
     }
 
-    public static TransactionDAO getInstance(int dataSize) {
+    public static TransactionDAO getInstance() {
         if(instance == null) {
-            instance = new TransactionDAO(dataSize);
+            instance = new TransactionDAO();
         }
         return instance;
     }
@@ -75,26 +77,37 @@ public class TransactionDAO implements InterfaceTransactionDao{
     //=======================================================================
     @Override
     public Transaction getSingleTransaction(int transactionId) {
-        return InterfaceTransactionDao.super.getSingleTransaction(transactionId);
+        for (Transaction transaction: transactionList){
+            if (transaction.getTransactionId() == transactionId){
+                return transaction;
+            }
+        }
+        return new Transaction();
+    }
+    public int getTransactionIndex(int transactionId){
+        for (int i = 0; i < transactionList.size(); i++) {
+            if (transactionList.get(i).getTransactionId() == transactionId){
+                return i;
+            }
+        }
+        return -1;
+    }
+    public void updateTransaction(int transactionId, Transaction newT){
+        int index = getTransactionIndex(transactionId);
+        newT.setTransactionId(transactionId);
+        transactionList.set(index, newT);
     }
 
     @Override
     public boolean addSingleTransaction(@NonNull Transaction newTransaction) {
-        return InterfaceTransactionDao.super.addSingleTransaction(newTransaction);
-    }
-
-    @Override
-    public boolean addMultipleTransactions(@NonNull List<Transaction> newTransactions) {
-        return InterfaceTransactionDao.super.addMultipleTransactions(newTransactions);
+        transactionList.add(newTransaction);
+        return true;
     }
 
     @Override
     public boolean removeSingleTransaction(int transactionId) {
-        return InterfaceTransactionDao.super.removeSingleTransaction(transactionId);
+        transactionList.remove(getTransactionIndex(transactionId));
+        return true;
     }
 
-    @Override
-    public boolean removeMultipleTransactions(@NonNull List<Integer> transactionIds) {
-        return InterfaceTransactionDao.super.removeMultipleTransactions(transactionIds);
-    }
 }

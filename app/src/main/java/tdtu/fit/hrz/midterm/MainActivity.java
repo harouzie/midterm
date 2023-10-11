@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +23,7 @@ import java.util.Calendar;
 
 import tdtu.fit.hrz.midterm.entity.Transaction;
 import tdtu.fit.hrz.midterm.entity.TransactionDAO;
+import tdtu.fit.hrz.midterm.entity.TransactionRequest;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private TransactionListAdapter mTransactionAdapter;
     private FloatingActionButton fab;
+    TransactionDAO transactionDAO = TransactionDAO.getInstance();
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,22 +52,12 @@ public class MainActivity extends AppCompatActivity {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         datePickerDialog = new DatePickerDialog(this, dateSetListener, year, month, day);
 
-        TransactionDAO transactionDAO = TransactionDAO.getInstance(100);
         //====TESTING, playground is here bois=========================================
 
         ArrayList<Transaction> transactions = transactionDAO.getTransactionList();
         mTransactionAdapter = new TransactionListAdapter(this, transactions, R.layout.transaction_cardview);
         mRecyclerView.setAdapter(mTransactionAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        fab.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                Toast.makeText(
-                        MainActivity.this,
-                        "Long click detected", Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        });
 
 
         //====CLICK LISTENER SETTING========================================
@@ -79,8 +72,10 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Let's add some transaction", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent addTransactionIntent = new Intent(MainActivity.this, TransactionDetailActivity.class);
+                addTransactionIntent.setAction(TransactionRequest.ADD.getAction());
+
+                startActivity(addTransactionIntent);
             }
         });
     }

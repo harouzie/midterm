@@ -19,16 +19,16 @@ public interface InterfaceTransactionDao {
         return false; // return false if add failed
     }
 
-    default boolean addMultipleTransactions(@NonNull List<Transaction> newTransactions) {
-        return false; // return false if add failed
-    }
+//    default boolean addMultipleTransactions(@NonNull List<Transaction> newTransactions) {
+//        return false; // return false if add failed
+//    }
 
     //  REMOVERS
     default boolean removeSingleTransaction(int transactionId) {
         return false; // return false if remove failed
     }
 
-    default boolean removeMultipleTransactions(@NonNull List<Integer> transactionIds) {
-        return false; // return false if remove failed
-    }
+//    default boolean removeMultipleTransactions(@NonNull List<Integer> transactionIds) {
+//        return false; // return false if remove failed
+//    }
 }

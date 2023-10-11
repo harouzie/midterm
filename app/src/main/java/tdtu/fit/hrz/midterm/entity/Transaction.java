@@ -18,22 +18,24 @@ public class Transaction {
             = NumberFormat.getNumberInstance(new Locale("en","US"));
     private Date spentDate;
     private TransactionCategory category;
-    public StringBuilder note;
+    private StringBuilder note;
 
 //   todo: add note, and image like receive or bill
     public Transaction() {
         this.transactionId = staticTransactionId + 1;
         currency = Currency.getInstance("VND");
 //        spentDate = new Date();
-        spentDate = RandomDateGenerator.getRandomDate();
+        spentDate = new Date();
         category = TransactionCategory.GENERAL_FEE;
         staticTransactionId +=1;
+        note = new StringBuilder("");
     }
 
     public Transaction(TransactionCategory category, int spentAmount){
         this();
         this.category = category;
         this.spentAmount =spentAmount;
+        spentDate = RandomDateGenerator.getRandomDate();
     }
 
     //==========================================================================
@@ -46,10 +48,15 @@ public class Transaction {
     public String getSpentAmountString() {
         return numberFormat.format(spentAmount);
     }
-
+    public void setSpentAmount(int amount){
+        spentAmount = amount;
+    }
     //================================================
     public int getTransactionId() {
         return transactionId;
+    }
+    public void setTransactionId(int id) {
+        this.transactionId = id;
     }
     //================================================
     public Date getSpentDate() {
@@ -81,10 +88,19 @@ public class Transaction {
         this.currency = currency;
     }
 
+    public StringBuilder getNote() {
+        return note;
+    }
+
+    public void setNote(StringBuilder note) {
+        this.note = note;
+    }
     @NonNull
     public String toString(){
         return String.format(
-        "Transaction{ID:%d}",transactionId
+                "Transaction{ID:%d}[%s|%s|%s|%s]",
+                transactionId, getCategory().toString(),
+                getSpentAmountString(), getSpentDateString(),getNote().toString()
         );
     }
 }
