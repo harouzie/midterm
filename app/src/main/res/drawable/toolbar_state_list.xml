@@ -1,0 +1,12 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Trạng thái mặc định (không được nhấn) -->
+    <item
+        android:state_pressed="false"
+        android:drawable="@drawable/default_toolbar_button_background">
+    </item>
+    <!-- Trạng thái khi được nhấn -->
+    <item
+        android:state_pressed="true"
+        android:drawable="@drawable/pressed_toolbar_button_background">
+    </item>
+</selector>

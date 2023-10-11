@@ -9,4 +9,5 @@
     <string name="expenses">Total expenses:</string>
     <string name="expListTitle">List of expenses:</string>
     <string name="dd_mm_yyyy">dd:mm:yyyy</string>
+    <string name="all_time_title">History</string>
 </resources>
