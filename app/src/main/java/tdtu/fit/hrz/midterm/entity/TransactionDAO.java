@@ -3,6 +3,7 @@ package tdtu.fit.hrz.midterm.entity;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -15,12 +16,14 @@ public class TransactionDAO implements InterfaceTransactionDao{
     private static TransactionDAO instance;
     private static ArrayList<Transaction> transactionList;
     private int dataSize = 0;
-    private final static Random random = new Random(127343342);
-    private final static int numCategory = TransactionCategory.values().length; // number of cate
-    //=======================================================================
+    private static Random random;
+    private static int numCategory;
+    //================================An=======================================
     private TransactionDAO(int dataSize) {
-        transactionList = addSyntheticTransaction(dataSize);
         this.dataSize = dataSize;
+        random = new Random();
+        numCategory = TransactionCategory.values().length; // number of cate
+        transactionList = addSyntheticTransaction(dataSize);
     }
 
     public static TransactionDAO getInstance(int dataSize) {
@@ -38,19 +41,37 @@ public class TransactionDAO implements InterfaceTransactionDao{
         ArrayList<Transaction> trs = new ArrayList<>();
         int amount;
         for (int n = 0; n < num; n++) {
-            amount = random.nextInt(1000000);
+            amount = random.nextInt(1000);
             trs.add(
                 new Transaction(
                     TransactionCategory.values()[random.nextInt(numCategory)],
-                    (amount - amount%1000)
+                    (amount*1000)
             ));
         }
+        // Sort transactions by latest date
+        trs.sort(new Comparator<Transaction>() {
+            @Override
+            public int compare(Transaction transaction, Transaction t1) {
+                long val = transaction.getSpentDate().getTime() - t1.getSpentDate().getTime();
+                if (val > 0)
+                    return -1;
+                else if (val == 0) {
+                    return 0;
+                } else {
+                    return 1;
+                }
+            }
+        });
         return trs;
     }
     //=======================================================================
 //    FILTERER
+    public ArrayList<Transaction> filterByAllMonths(){
+        return null;
+    }
 
 
+    //=======================================================================
     //=======================================================================
     @Override
     public Transaction getSingleTransaction(int transactionId) {

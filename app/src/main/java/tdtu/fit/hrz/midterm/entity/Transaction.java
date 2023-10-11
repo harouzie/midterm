@@ -19,7 +19,8 @@ public class Transaction {
     public Transaction() {
         this.transactionId = staticTransactionId + 1;
         currency = Currency.getInstance("VND");
-        spentDate = new Date();
+//        spentDate = new Date();
+        spentDate = RandomDateGenerator.getRandomDate();
         category = TransactionCategory.GENERAL_FEE;
         staticTransactionId +=1;
         dateFormat = new SimpleDateFormat("EEEE, dd/MM/yyyy");
