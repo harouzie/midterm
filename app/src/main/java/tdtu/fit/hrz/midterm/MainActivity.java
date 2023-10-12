@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import tdtu.fit.hrz.midterm.entity.Transaction;
+import tdtu.fit.hrz.midterm.entity.TransactionCategory;
 import tdtu.fit.hrz.midterm.entity.TransactionDAO;
 import tdtu.fit.hrz.midterm.entity.TransactionRequest;
 
@@ -54,8 +55,14 @@ public class MainActivity extends AppCompatActivity {
 
         //====TESTING, playground is here bois=========================================
 
-        ArrayList<Transaction> transactions = transactionDAO.getTransactionList();
-        mTransactionAdapter = new TransactionListAdapter(this, transactions, R.layout.transaction_cardview);
+        ArrayList<Transaction> transactions =
+//                transactionDAO.filterByDate(9, 10, 2023);
+//                transactionDAO.filterByMonth(9);
+                transactionDAO.filterByCategory(TransactionCategory.INCOME_SALARY);
+//                transactionDAO.getTransactionList(); // return all dataset
+
+        mTransactionAdapter = new TransactionListAdapter(
+                        this, transactions, R.layout.transaction_cardview);
         mRecyclerView.setAdapter(mTransactionAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 

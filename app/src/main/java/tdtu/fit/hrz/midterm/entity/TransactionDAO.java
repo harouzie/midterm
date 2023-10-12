@@ -3,11 +3,10 @@ package tdtu.fit.hrz.midterm.entity;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Comparator;
-import java.util.List;
+import java.util.Date;
 import java.util.Random;
-
-import tdtu.fit.hrz.midterm.TransactionListAdapter;
 
 // TODO data set changed after update, add, delete
 
@@ -18,9 +17,11 @@ import tdtu.fit.hrz.midterm.TransactionListAdapter;
 public class TransactionDAO implements InterfaceTransactionDao{
     private static TransactionDAO instance;
     private static ArrayList<Transaction> transactionList;
-    private final int dataSize = 100;
+    private final int dataSize = 1000;
     private static Random random;
     public static int numCategory;
+    private Date filteredDate = new Date();
+    private Calendar calendar = Calendar.getInstance();
     //================================SINGLETON=======================================
     private TransactionDAO() {
         random = new Random();
@@ -68,11 +69,44 @@ public class TransactionDAO implements InterfaceTransactionDao{
     }
     //=======================================================================
 //    FILTERER
-    public ArrayList<Transaction> filterByAllMonths(){
-        return null;
+//    public ArrayList<Transaction> filterByAllMonths(){
+//        return null;
+//    }
+
+    public ArrayList<Transaction> filterByCategory(TransactionCategory category){
+        ArrayList<Transaction> transactions = new ArrayList<>();
+        for (Transaction t: transactionList){
+            if(t.getCategory().equals(category)){
+                transactions.add(t);
+            }
+        }
+        return transactions;
+    }
+    public ArrayList<Transaction> filterByMonth(int month){
+        ArrayList<Transaction> transactions = new ArrayList<>();
+        for (Transaction t: transactionList){
+            filteredDate = t.getSpentDate();
+            calendar.setTime(filteredDate);
+            if(calendar.get(Calendar.MONTH) == (month-1)){
+                transactions.add(t);
+            }
+        }
+        return transactions;
     }
 
-
+    public ArrayList<Transaction> filterByDate(int day, int month, int year){
+        ArrayList<Transaction> transactions = new ArrayList<>();
+        for (Transaction t: transactionList){
+            filteredDate = t.getSpentDate();
+            calendar.setTime(filteredDate);
+            if(calendar.get(Calendar.DAY_OF_MONTH) == day &&
+                calendar.get(Calendar.MONTH) == (month-1) &&
+                calendar.get(Calendar.YEAR) == year){
+                transactions.add(t);
+            }
+        }
+        return transactions;
+    }
     //=======================================================================
     //=======================================================================
     @Override
