@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ import tdtu.fit.hrz.midterm.entity.TransactionRequest;
 public class MainActivity extends AppCompatActivity {
 
     private Button buttonSelectDate;
+    private ImageButton allTimeButton, statButton, userButton;
     private TextView selectedDate, currentTime;
     private DatePickerDialog datePickerDialog;
     private RecyclerView mRecyclerView;
@@ -55,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
         selectedDate = findViewById(R.id.selectedDate);
         mRecyclerView = findViewById(R.id.expListOnDate);
         currentTime = findViewById(R.id.timeTextView);
+        allTimeButton = findViewById(R.id.allTimeButton);
+        statButton = findViewById(R.id.statButton);
+        userButton = findViewById(R.id.userButton);
         fab = findViewById(R.id.fab);
 
         //====INITIALIZE ===================================================
@@ -97,6 +102,34 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(addTransactionIntent);
             }
         });
+
+        // ACTION FOR ALL-TIME BUTTON ON TOOLBAR
+        allTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Sample Action for All Time History",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // ACTION FOR STATISTICS BUTTON ON TOOLBAR
+        statButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Sample Action for Statistics",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // ACTION FOR USER INFO BUTTON ON TOOLBAR
+        userButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Sample Action for User Info",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
