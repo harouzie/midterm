@@ -8,6 +8,16 @@
     <string name="dateSelect">Đổi</string>
     <string name="expenses">Tổng chi tiêu:</string>
     <string name="expListTitle">Danh sách chi tiêu:</string>
+
+    <string name="txt_category">Loại chi tiêu</string>
+    <string name="txt_spent_amount">Số tiền</string>
+    <string name="txt_spent_date">Ngày chi</string>
+    <string name="txt_transaction_time">Thời gian chi</string>
+    <string name="note">Ghi chú</string>
+    <string name="btn_delete">XÓA GD</string>
+    <string name="btn_save">LƯU GD</string>
+
     <string name="dd_mm_yyyy">dd:mm:yyyy</string>
     <string name="all_time_title">Lịch sử</string>
+
 </resources>

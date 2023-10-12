@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.Intent;
+
 import android.icu.text.SimpleDateFormat;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -14,6 +17,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -24,6 +28,9 @@ import java.util.Date;
 import java.util.Locale;
 
 import tdtu.fit.hrz.midterm.entity.Transaction;
+import tdtu.fit.hrz.midterm.entity.TransactionCategory;
+import tdtu.fit.hrz.midterm.entity.TransactionDAO;
+import tdtu.fit.hrz.midterm.entity.TransactionRequest;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,7 +40,11 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private TransactionListAdapter mTransactionAdapter;
     private FloatingActionButton fab;
+
+    TransactionDAO transactionDAO = TransactionDAO.getInstance();
+
     Handler handler = new Handler();
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +65,18 @@ public class MainActivity extends AppCompatActivity {
         datePickerDialog = new DatePickerDialog(this, dateSetListener, year, month, day);
 
         //====TESTING, playground is here bois=========================================
-        ArrayList<Transaction> transactions = addSyntheticTransaction(10);
-        mTransactionAdapter = new TransactionListAdapter(this, transactions);
+
+        ArrayList<Transaction> transactions =
+//                transactionDAO.filterByDate(9, 10, 2023);
+//                transactionDAO.filterByMonth(9);
+                transactionDAO.filterByCategory(TransactionCategory.INCOME_SALARY);
+//                transactionDAO.getTransactionList(); // return all dataset
+
+        mTransactionAdapter = new TransactionListAdapter(
+                        this, transactions, R.layout.transaction_cardview);
         mRecyclerView.setAdapter(mTransactionAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         updateClock(); //Call update clock method
-
 
 
         //====CLICK LISTENER SETTING========================================
@@ -74,8 +91,10 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Let's add some transaction", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent addTransactionIntent = new Intent(MainActivity.this, TransactionDetailActivity.class);
+                addTransactionIntent.setAction(TransactionRequest.ADD.getAction());
+
+                startActivity(addTransactionIntent);
             }
         });
     }
@@ -91,13 +110,6 @@ public class MainActivity extends AppCompatActivity {
 
 //  TESTING SECTION=================================================
 //  i write some function serving testing sake over here /hrz
-    private ArrayList<Transaction> addSyntheticTransaction(int num){
-        ArrayList<Transaction> trs = new ArrayList<>();
-        for (int n = 0; n < num; n++) {
-            trs.add(new Transaction());
-        }
-        return trs;
-    }
 
     private void updateClock() {
         handler.postDelayed(new Runnable() {

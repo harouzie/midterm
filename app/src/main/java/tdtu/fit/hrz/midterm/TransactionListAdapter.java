@@ -1,19 +1,22 @@
 package tdtu.fit.hrz.midterm;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
+import tdtu.fit.hrz.midterm.entity.TransactionRequest;
 import tdtu.fit.hrz.midterm.entity.Transaction;
+import tdtu.fit.hrz.midterm.entity.TransactionCategory;
 
 /**
  *
@@ -22,15 +25,17 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
     private static ArrayList<Transaction> mTransactionList;
     private final LayoutInflater mInflater;
     private Context context;
-    public TransactionListAdapter(Context context, ArrayList<Transaction> transactions){
+    private int resourceID;
+    public TransactionListAdapter(Context context, ArrayList<Transaction> transactions, int resourceID){
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
         mTransactionList = transactions;
+        this.resourceID = resourceID;
     }
     @NonNull
     @Override
     public TransactionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View mItemView = mInflater.inflate(R.layout.transactionlist_item,parent, false);
+        View mItemView = mInflater.inflate(this.resourceID,parent, false);
         return new TransactionViewHolder(mItemView, this);
     }
 
@@ -45,37 +50,51 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
         return mTransactionList.size();
     }
 
-    public class TransactionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class TransactionViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
         final TransactionListAdapter mAdapter;
-        TextView money_row;
-        TextView category_row;
-        TextView currency_row;
-        TextView date_row;
-
+        Transaction transaction;
+        ImageView icon;
+        TextView transaction_cate;
+        TextView transaction_amount;
+        TextView transaction_date;
+        TextView transaction_currency;
 
         public TransactionViewHolder(@NonNull View itemView, TransactionListAdapter transactionListAdapter) {
             super(itemView);
             mAdapter = transactionListAdapter;
-            money_row = itemView.findViewById(R.id.money_row);
-            category_row = itemView.findViewById(R.id.category_row);
-            currency_row = itemView.findViewById(R.id.currency_row);
-            date_row = itemView.findViewById(R.id.date_row);
-            itemView.setOnClickListener(this);
+            transaction_cate = itemView.findViewById(R.id.transaction_category);
+            transaction_amount = itemView.findViewById(R.id.transaction_amount);
+            transaction_date = itemView.findViewById(R.id.transaction_date);
+            transaction_currency = itemView.findViewById(R.id.transaction_currency);
+            itemView.setOnLongClickListener(this);
         }
 
         public void update(Transaction transaction) {
-            money_row.setText(String.format("%.2f", transaction.getSpentAmount()));
-            category_row.setText(String.format("%s", transaction.getCategory()));
-            currency_row.setText(String.format("%s", transaction.getCurrency().getCurrencyCode()));
-            date_row.setText(String.format("%s", transaction.getSpentDate().toString()));
+            this.transaction = transaction;
+            transaction_cate.setText(String.format("%s", transaction.getCategory()));
+            transaction_amount.setText(
+                    String.format("%s", transaction.getSpentAmountString()));
+            transaction_currency.setText(
+                    String.format("%s", transaction.getCurrency().getCurrencyCode()));
+            transaction_date.setText(String.format("%s", transaction.getSpentDateString()));
+
+            if (TransactionCategory.INCOME_GIFT.equals(transaction.getCategory())
+                    || TransactionCategory.INCOME_SALARY.equals(transaction.getCategory())){
+                transaction_amount.setTextColor(context.getResources().getColor(R.color.green));
+            } else transaction_amount.setTextColor(context.getResources().getColor(R.color.dark_red));
+
         }
 
         @Override
-        public void onClick(View view) {
-            int position = getAdapterPosition();
-            Toast.makeText(
-                view.getContext(), mTransactionList.get(position).toString(), Toast.LENGTH_SHORT)
-                .show();
+        public boolean onLongClick(View view) {
+            Intent displayIntent = new Intent(context, TransactionDetailActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("transaction_id", transaction.getTransactionId());
+            displayIntent.setAction(TransactionRequest.DISPLAY.getAction());
+            displayIntent.putExtras(bundle);
+
+            context.startActivity(displayIntent);
+            return true;
         }
     }
 }
