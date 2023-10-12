@@ -7,7 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+
+import android.icu.text.SimpleDateFormat;
+
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -20,6 +24,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import tdtu.fit.hrz.midterm.entity.Transaction;
 import tdtu.fit.hrz.midterm.entity.TransactionCategory;
@@ -29,12 +35,16 @@ import tdtu.fit.hrz.midterm.entity.TransactionRequest;
 public class MainActivity extends AppCompatActivity {
 
     private Button buttonSelectDate;
-    private TextView selectedDate;
+    private TextView selectedDate, currentTime;
     private DatePickerDialog datePickerDialog;
     private RecyclerView mRecyclerView;
     private TransactionListAdapter mTransactionAdapter;
     private FloatingActionButton fab;
+
     TransactionDAO transactionDAO = TransactionDAO.getInstance();
+
+    Handler handler = new Handler();
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         buttonSelectDate = findViewById(R.id.changeDateButton);
         selectedDate = findViewById(R.id.selectedDate);
         mRecyclerView = findViewById(R.id.expListOnDate);
+        currentTime = findViewById(R.id.timeTextView);
         fab = findViewById(R.id.fab);
 
         //====INITIALIZE ===================================================
@@ -65,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                         this, transactions, R.layout.transaction_cardview);
         mRecyclerView.setAdapter(mTransactionAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        updateClock(); //Call update clock method
 
 
         //====CLICK LISTENER SETTING========================================
@@ -98,5 +110,17 @@ public class MainActivity extends AppCompatActivity {
 
 //  TESTING SECTION=================================================
 //  i write some function serving testing sake over here /hrz
+
+    private void updateClock() {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy HH:mm", Locale.getDefault());
+                String currentDateAndTime = sdf.format(new Date());
+                currentTime.setText(currentDateAndTime);
+                updateClock();
+            }
+        }, 1000); // 1000 means update every 1 second
+    }
 
 }

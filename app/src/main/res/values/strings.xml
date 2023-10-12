@@ -8,6 +8,7 @@
     <string name="selectedDate" translatable="false">MM/DD/YYYY</string>
     <string name="expenses">Total expenses:</string>
     <string name="expListTitle">List of expenses:</string>
+
     <string name="txt_category">CATEGORY</string>
     <string name="txt_spent_amount">SPENT AMOUNT</string>
     <string name="txt_spent_date">SPENT DATE</string>
@@ -15,4 +16,8 @@
     <string name="note">NOTE</string>
     <string name="btn_delete">DELETE</string>
     <string name="btn_save">SAVE</string>
+
+    <string name="dd_mm_yyyy">dd:mm:yyyy</string>
+    <string name="all_time_title">History</string>
+
 </resources>
