@@ -188,10 +188,7 @@
             android:layout_margin="10dp"/>
 
     </FrameLayout>
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp">
-    </androidx.recyclerview.widget.RecyclerView>
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
