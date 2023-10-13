@@ -10,7 +10,7 @@ import java.util.Locale;
 public class Transaction {
     private static int staticTransactionId = 0;
     private int transactionId ;
-    private Currency currency;
+    public static Currency currency;
     private int spentAmount = 0;
     private final static SimpleDateFormat dateFormat
             = new SimpleDateFormat("EEEE, dd/MM/yyyy");

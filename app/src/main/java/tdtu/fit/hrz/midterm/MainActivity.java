@@ -28,6 +28,7 @@ import java.util.Locale;
 
 import tdtu.fit.hrz.midterm.entity.Transaction;
 import tdtu.fit.hrz.midterm.entity.TransactionDAO;
+import tdtu.fit.hrz.midterm.entity.TransactionRCVAdapter;
 import tdtu.fit.hrz.midterm.entity.TransactionRequest;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView selectedDate, currentTime;
     private DatePickerDialog datePickerDialog;
     private RecyclerView mRecyclerView;
-    private TransactionListAdapter mTransactionAdapter;
+    private TransactionRCVAdapter mTransactionAdapter;
     private FloatingActionButton fab;
 
     TransactionDAO transactionDAO = TransactionDAO.getInstance();
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 //                transactionDAO.filterByCategory(TransactionCategory.INCOME_SALARY);
 //                transactionDAO.getTransactionList(); // return all dataset
 
-        mTransactionAdapter = new TransactionListAdapter(
+        mTransactionAdapter = new TransactionRCVAdapter(
                         this, transactions, R.layout.transaction_cardview_item_rcv);
         mRecyclerView.setAdapter(mTransactionAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -106,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Sample Action for All Time History",
                         Toast.LENGTH_SHORT).show();
+                Intent watchHistory = new Intent(MainActivity.this, HistoryActivity.class);
+                startActivity(watchHistory);
             }
         });
 
@@ -153,4 +156,7 @@ public class MainActivity extends AppCompatActivity {
         }, 1000); // 1000 means update every 1 second
     }
 
+//    public void startHistoryActivity(View view) {
+//
+//    }
 }

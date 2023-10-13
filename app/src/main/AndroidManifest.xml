@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Midterm"
         tools:targetApi="31">
         <activity
-            android:name=".AlltimeHistoryActivity"
+            android:name=".HistoryActivity"
             android:exported="false" />
         <activity
             android:name=".TransactionDetailActivity"

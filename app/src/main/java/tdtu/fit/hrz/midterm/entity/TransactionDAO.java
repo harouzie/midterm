@@ -17,7 +17,7 @@ import java.util.Random;
 public class TransactionDAO implements InterfaceTransactionDao{
     private static TransactionDAO instance;
     private static ArrayList<Transaction> transactionList;
-    private final int dataSize = 1000;
+    private int dataSize = 100;
     private static Random random;
     public static int numCategory;
     private Date filteredDate = new Date();
@@ -27,6 +27,8 @@ public class TransactionDAO implements InterfaceTransactionDao{
         random = new Random();
         numCategory = TransactionCategory.values().length; // number of cate
         transactionList = addSyntheticTransaction(dataSize);
+        // Sort transactions by latest date
+        sortTransactions();
     }
 
     public static TransactionDAO getInstance() {
@@ -51,8 +53,11 @@ public class TransactionDAO implements InterfaceTransactionDao{
                     (amount*1000)
             ));
         }
-        // Sort transactions by latest date
-        trs.sort(new Comparator<Transaction>() {
+        return trs;
+    }
+
+    public static void sortTransactions(){
+        transactionList.sort(new Comparator<Transaction>() {
             @Override
             public int compare(Transaction transaction, Transaction t1) {
                 long val = transaction.getSpentDate().getTime() - t1.getSpentDate().getTime();
@@ -65,13 +70,29 @@ public class TransactionDAO implements InterfaceTransactionDao{
                 }
             }
         });
-        return trs;
     }
     //=======================================================================
 //    FILTERER
-//    public ArrayList<Transaction> filterByAllMonths(){
-//        return null;
-//    }
+    public ArrayList<DailyReport> getDailyReportList(){
+        assert transactionList.size() > 0;
+        sortTransactions();
+        ArrayList<DailyReport> dailyReports = new ArrayList<>();
+        DailyReport currentReport = null;
+        Date currentDate = null;
+
+        for(Transaction t : transactionList) {
+            // Check if new date
+            if(!t.getSpentDate().equals(currentDate)) {
+                // Create new report for new date
+                currentReport = new DailyReport(t.getSpentDate());
+                dailyReports.add(currentReport);
+                currentDate = t.getSpentDate();
+            }
+            // Add transaction to current report
+            currentReport.addTransaction(t);
+        }
+        return dailyReports;
+    }
 
     public ArrayList<Transaction> filterByCategory(TransactionCategory category){
         ArrayList<Transaction> transactions = new ArrayList<>();
