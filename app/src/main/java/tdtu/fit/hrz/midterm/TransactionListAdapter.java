@@ -53,7 +53,7 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
     public class TransactionViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
         final TransactionListAdapter mAdapter;
         Transaction transaction;
-        ImageView icon;
+        ImageView transaction_icon;
         TextView transaction_cate;
         TextView transaction_amount;
         TextView transaction_date;
@@ -62,15 +62,18 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
         public TransactionViewHolder(@NonNull View itemView, TransactionListAdapter transactionListAdapter) {
             super(itemView);
             mAdapter = transactionListAdapter;
+            transaction_icon = itemView.findViewById(R.id.transaction_icon);
             transaction_cate = itemView.findViewById(R.id.transaction_category);
-            transaction_amount = itemView.findViewById(R.id.transaction_amount);
+            transaction_amount = itemView.findViewById(R.id.report_total_amount);
             transaction_date = itemView.findViewById(R.id.transaction_date);
-            transaction_currency = itemView.findViewById(R.id.transaction_currency);
+            transaction_currency = itemView.findViewById(R.id.report_currency);
+
             itemView.setOnLongClickListener(this);
         }
 
         public void update(Transaction transaction) {
             this.transaction = transaction;
+            transaction_icon.setImageResource(transaction.getCategory().getResourceId());
             transaction_cate.setText(String.format("%s", transaction.getCategory()));
             transaction_amount.setText(
                     String.format("%s", transaction.getSpentAmountString()));
@@ -82,7 +85,6 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
                     || TransactionCategory.INCOME_SALARY.equals(transaction.getCategory())){
                 transaction_amount.setTextColor(context.getResources().getColor(R.color.green));
             } else transaction_amount.setTextColor(context.getResources().getColor(R.color.dark_red));
-
         }
 
         @Override

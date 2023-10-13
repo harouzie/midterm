@@ -26,7 +26,7 @@ public class Transaction {
         currency = Currency.getInstance("VND");
 //        spentDate = new Date();
         spentDate = new Date();
-        category = TransactionCategory.GENERAL_FEE;
+        category = TransactionCategory.GENERAL;
         staticTransactionId +=1;
         note = new StringBuilder("");
     }

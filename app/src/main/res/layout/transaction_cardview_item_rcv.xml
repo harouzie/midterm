@@ -3,14 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
->
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="2dp"
         android:layout_marginBottom="8dp"
-        app:cardCornerRadius="10dp">
+        app:cardCornerRadius="10dp"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardElevation="5dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -18,8 +22,7 @@
             android:padding="8dp">
 
             <ImageView
-                android:id="@+id/icon_transaction_category"
-                android:src="@android:mipmap/sym_def_app_icon"
+                android:id="@+id/transaction_icon"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginRight="8dp"
@@ -30,37 +33,49 @@
                 android:hint="CATEGORY"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/icon_transaction_category"
+                android:layout_toRightOf="@id/transaction_icon"
                 android:textSize="16sp"
                 android:textColor="@color/blue"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/transaction_amount"
-                android:hint="SPENT AMOUNT"
+                android:id="@+id/report_total_amount"
+                android:hint="$"
 
                 android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/transaction_category"
-                android:layout_toRightOf="@id/icon_transaction_category" />
+                android:layout_toRightOf="@id/transaction_icon" />
 
             <TextView
                 android:id="@+id/transaction_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:layout_alignBaseline="@id/transaction_category"
                 android:layout_alignParentEnd="true"
                 android:hint="DATE" />
 
             <TextView
-                android:id="@+id/transaction_currency"
+                android:id="@+id/report_currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:layout_below="@id/transaction_category"
+                android:layout_toRightOf="@id/report_total_amount"
+                android:gravity="left|center_vertical"
+                android:layout_marginLeft="2dp"
+                android:hint="cur" />
+
+            <TextView
+                android:id="@+id/transaction_note"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/transaction_category"
-                android:gravity="right"
-                android:layout_alignParentEnd="true"
-                android:hint="Currency" />
+                android:layout_alignBaseline="@id/report_currency"
+                android:layout_alignParentRight="true"
+                android:hint="Note"
+                android:textSize="14dp"/>
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

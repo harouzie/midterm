@@ -16,12 +16,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,7 +27,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import tdtu.fit.hrz.midterm.entity.Transaction;
-import tdtu.fit.hrz.midterm.entity.TransactionCategory;
 import tdtu.fit.hrz.midterm.entity.TransactionDAO;
 import tdtu.fit.hrz.midterm.entity.TransactionRequest;
 
@@ -74,12 +71,12 @@ public class MainActivity extends AppCompatActivityModified {
 
         ArrayList<Transaction> transactions =
 //                transactionDAO.filterByDate(9, 10, 2023);
-//                transactionDAO.filterByMonth(9);
-                transactionDAO.filterByCategory(TransactionCategory.INCOME_SALARY);
+                transactionDAO.filterByMonth(9);
+//                transactionDAO.filterByCategory(TransactionCategory.INCOME_SALARY);
 //                transactionDAO.getTransactionList(); // return all dataset
 
         mTransactionAdapter = new TransactionListAdapter(
-                        this, transactions, R.layout.transaction_cardview);
+                        this, transactions, R.layout.transaction_cardview_item_rcv);
         mRecyclerView.setAdapter(mTransactionAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 

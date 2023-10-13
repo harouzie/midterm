@@ -34,8 +34,8 @@ import tdtu.fit.hrz.midterm.entity.Transaction;
 import tdtu.fit.hrz.midterm.entity.TransactionCategory;
 import tdtu.fit.hrz.midterm.entity.TransactionDAO;
 
-public class TransactionDetailActivity extends AppCompatActivityModified {
-    ImageView icon;
+public class TransactionDetailActivity extends AppCompatActivity {
+    ImageView transaction_icon;
     TextView transaction_cate, transaction_amount, transaction_date, transaction_currency;
     EditText edtAmount, edtDate, edtTime, edtNote;
     Spinner spinner;
@@ -51,10 +51,11 @@ public class TransactionDetailActivity extends AppCompatActivityModified {
         setContentView(R.layout.activity_transaction_detail);
         //=============================================================
         spinner = findViewById(R.id.spinnerCate);
+        transaction_icon = findViewById(R.id.transaction_icon);
         transaction_cate = findViewById(R.id.transaction_category);
-        transaction_amount = findViewById(R.id.transaction_amount);
+        transaction_amount = findViewById(R.id.report_total_amount);
         transaction_date = findViewById(R.id.transaction_date);
-        transaction_currency = findViewById(R.id.transaction_currency);
+        transaction_currency = findViewById(R.id.report_currency);
 
         edtAmount = findViewById(R.id.edt_amount);
         edtDate = findViewById(R.id.edt_date);
@@ -271,6 +272,7 @@ public class TransactionDetailActivity extends AppCompatActivityModified {
         String amount = transaction.getSpentAmountString();
         String date = transaction.getSpentDateString();
 
+        transaction_icon.setImageResource(transaction.getCategory().getResourceId());
         transaction_cate.setText(String.valueOf(transaction.getCategory()));
         transaction_amount.setText(amount);
         transaction_currency.setText(transaction.getCurrency().getCurrencyCode());
