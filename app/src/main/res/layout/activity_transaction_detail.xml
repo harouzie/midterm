@@ -20,11 +20,12 @@
         android:padding="5dp">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/transaction_cardview"
+            android:id="@+id/cardview_daily_report"
             android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/white"
+            app:cardElevation="5dp"
             app:cardCornerRadius="8dp">
 
             <RelativeLayout
@@ -33,7 +34,7 @@
                 android:padding="8dp">
 
                 <ImageView
-                    android:id="@+id/icon_transaction_category"
+                    android:id="@+id/transaction_icon"
                     android:src="@android:mipmap/sym_def_app_icon"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
@@ -45,20 +46,20 @@
                     android:hint="CATEGORY"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/icon_transaction_category"
+                    android:layout_toRightOf="@id/transaction_icon"
                     android:textSize="16sp"
                     android:textColor="@color/blue"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/transaction_amount"
+                    android:id="@+id/report_total_amount"
                     android:hint="AM"
 
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/transaction_category"
-                    android:layout_toRightOf="@id/icon_transaction_category" />
+                    android:layout_toRightOf="@id/transaction_icon" />
 
                 <TextView
                     android:id="@+id/transaction_date"
@@ -69,12 +70,12 @@
                     android:hint="DATE" />
 
                 <TextView
-                    android:id="@+id/transaction_currency"
+                    android:id="@+id/report_currency"
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/transaction_category"
-                    android:layout_toEndOf="@id/transaction_amount"
+                    android:layout_toEndOf="@id/report_total_amount"
                     android:layout_marginLeft="2dp"
                     android:gravity="left|center_vertical"
                     android:hint="CUR" />
@@ -85,12 +86,14 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/transaction_cardview"
+            android:layout_below="@id/cardview_daily_report"
             app:cardBackgroundColor="@color/white"
             android:layout_marginStart="10dp"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
+            app:cardElevation="5dp"
+
             app:cardCornerRadius="8dp">
 
             <RelativeLayout

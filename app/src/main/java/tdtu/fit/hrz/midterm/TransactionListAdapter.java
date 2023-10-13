@@ -62,11 +62,11 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
         public TransactionViewHolder(@NonNull View itemView, TransactionListAdapter transactionListAdapter) {
             super(itemView);
             mAdapter = transactionListAdapter;
-            transaction_icon = itemView.findViewById(R.id.icon_transaction_category);
+            transaction_icon = itemView.findViewById(R.id.transaction_icon);
             transaction_cate = itemView.findViewById(R.id.transaction_category);
-            transaction_amount = itemView.findViewById(R.id.transaction_amount);
+            transaction_amount = itemView.findViewById(R.id.report_total_amount);
             transaction_date = itemView.findViewById(R.id.transaction_date);
-            transaction_currency = itemView.findViewById(R.id.transaction_currency);
+            transaction_currency = itemView.findViewById(R.id.report_currency);
 
             itemView.setOnLongClickListener(this);
         }

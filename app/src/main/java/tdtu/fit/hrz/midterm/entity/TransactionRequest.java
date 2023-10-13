@@ -2,7 +2,7 @@ package tdtu.fit.hrz.midterm.entity;
 
 public enum TransactionRequest {
     ADD(100,"add"),
-//    UPDATE(200, "update"),
+    UPDATE(200, "update"),
     DISPLAY(300, "display");
 
     private int requestCode;

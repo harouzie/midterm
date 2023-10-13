@@ -191,11 +191,8 @@
         android:layout_height="match_parent"
         android:layout_below="@id/expListOnDateTitle"
         android:layout_above="@id/toolbar"
-        android:layout_marginTop="10dp"
+        android:layout_margin="10dp"
 
-        android:layout_marginBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
         android:orientation="vertical">
 
         <View
@@ -208,9 +205,12 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/expListOnDate"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"/>
+            android:layout_height="match_parent"/>
 
     </FrameLayout>
 
