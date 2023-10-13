@@ -21,7 +21,7 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:text="DD/MM/YYYY hh:mm"
+            android:maxLines="1"
             android:textStyle="bold"
             android:textSize="22sp"
             android:textColor="@color/white"
@@ -191,8 +191,10 @@
         android:layout_height="match_parent"
         android:layout_below="@id/expListOnDateTitle"
         android:layout_above="@id/toolbar"
-        android:layout_margin="10dp"
-
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:orientation="vertical">
 
         <View
@@ -205,12 +207,9 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/expListOnDate"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"/>
 
     </FrameLayout>
 
@@ -273,15 +272,12 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/ic_fab"
+        app:rippleColor="@color/black"
         android:layout_above="@id/toolbar"
         android:layout_alignParentEnd="true"
         android:layout_gravity="end|bottom"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp"
+        android:layout_margin="15dp"
         android:contentDescription="add new transaction"
-        android:src="@drawable/ic_fab"
-        app:fabSize="auto"
-        app:rippleColor="@color/black" />
+        app:fabSize="auto" />
 </RelativeLayout>

@@ -31,7 +31,7 @@ import tdtu.fit.hrz.midterm.entity.TransactionDAO;
 import tdtu.fit.hrz.midterm.entity.TransactionRCVAdapter;
 import tdtu.fit.hrz.midterm.entity.TransactionRequest;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivityModified {
 
     private Button buttonSelectDate;
     private ImageButton allTimeButton, statButton, userButton;
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         fab = findViewById(R.id.fab);
 
         //====INITIALIZE ===================================================
+        updateClock(); //Call update clock method
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                         this, transactions, R.layout.transaction_cardview_item_rcv);
         mRecyclerView.setAdapter(mTransactionAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        updateClock(); //Call update clock method
+
 
 
         //====CLICK LISTENER SETTING========================================
@@ -125,8 +126,8 @@ public class MainActivity extends AppCompatActivity {
         userButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Sample Action for User Info",
-                        Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), UserInfoActivity.class);
+                startActivity(intent);
             }
         });
 

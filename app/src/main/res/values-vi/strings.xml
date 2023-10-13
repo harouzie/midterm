@@ -19,5 +19,8 @@
 
     <string name="dd_mm_yyyy">dd:mm:yyyy</string>
     <string name="all_time_title">Lịch sử</string>
+    <string name="userInfoTitle">Thông tin người dùng</string>
+    <string name="languageSwitch">Chuyển ngôn ngữ (Tiếng Anh/Tiếng Việt)</string>
+    <string name="languageText">VI</string>
 
 </resources>
