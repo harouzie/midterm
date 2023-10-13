@@ -73,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<Transaction> transactions =
 //                transactionDAO.filterByDate(9, 10, 2023);
-//                transactionDAO.filterByMonth(9);
-                transactionDAO.filterByCategory(TransactionCategory.INCOME_SALARY);
+                transactionDAO.filterByMonth(9);
+//                transactionDAO.filterByCategory(TransactionCategory.INCOME_SALARY);
 //                transactionDAO.getTransactionList(); // return all dataset
 
         mTransactionAdapter = new TransactionListAdapter(

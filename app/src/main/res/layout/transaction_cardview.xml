@@ -19,7 +19,6 @@
 
             <ImageView
                 android:id="@+id/icon_transaction_category"
-                android:src="@android:mipmap/sym_def_app_icon"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginRight="8dp"
@@ -37,7 +36,7 @@
 
             <TextView
                 android:id="@+id/transaction_amount"
-                android:hint="SPENT AMOUNT"
+                android:hint="$"
 
                 android:textSize="16sp"
                 android:layout_width="wrap_content"
@@ -49,7 +48,7 @@
                 android:id="@+id/transaction_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:layout_alignBaseline="@id/transaction_category"
                 android:layout_alignParentEnd="true"
                 android:hint="DATE" />
 
@@ -57,10 +56,22 @@
                 android:id="@+id/transaction_currency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="16dp"
                 android:layout_below="@id/transaction_category"
-                android:gravity="right"
-                android:layout_alignParentEnd="true"
-                android:hint="Currency" />
+                android:layout_toRightOf="@id/transaction_amount"
+                android:gravity="left|center_vertical"
+                android:layout_marginLeft="2dp"
+                android:hint="cur" />
+
+            <TextView
+                android:id="@+id/transaction_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/transaction_category"
+                android:layout_alignBaseline="@id/transaction_currency"
+                android:layout_alignParentRight="true"
+                android:hint="Note"
+                android:textSize="14dp"/>
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

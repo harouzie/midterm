@@ -35,7 +35,7 @@ import tdtu.fit.hrz.midterm.entity.TransactionCategory;
 import tdtu.fit.hrz.midterm.entity.TransactionDAO;
 
 public class TransactionDetailActivity extends AppCompatActivity {
-    ImageView icon;
+    ImageView transaction_icon;
     TextView transaction_cate, transaction_amount, transaction_date, transaction_currency;
     EditText edtAmount, edtDate, edtTime, edtNote;
     Spinner spinner;
@@ -51,6 +51,7 @@ public class TransactionDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_transaction_detail);
         //=============================================================
         spinner = findViewById(R.id.spinnerCate);
+        transaction_icon = findViewById(R.id.icon_transaction_category);
         transaction_cate = findViewById(R.id.transaction_category);
         transaction_amount = findViewById(R.id.transaction_amount);
         transaction_date = findViewById(R.id.transaction_date);
@@ -271,6 +272,7 @@ public class TransactionDetailActivity extends AppCompatActivity {
         String amount = transaction.getSpentAmountString();
         String date = transaction.getSpentDateString();
 
+        transaction_icon.setImageResource(transaction.getCategory().getResourceId());
         transaction_cate.setText(String.valueOf(transaction.getCategory()));
         transaction_amount.setText(amount);
         transaction_currency.setText(transaction.getCurrency().getCurrencyCode());
