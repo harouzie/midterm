@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Midterm"
         tools:targetApi="31">
         <activity
+            android:name=".UserInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".AlltimeHistoryActivity"
             android:exported="false" />
         <activity

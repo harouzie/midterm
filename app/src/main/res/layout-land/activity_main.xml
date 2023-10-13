@@ -43,7 +43,6 @@
                         android:layout_marginLeft="15dp"
                         android:gravity="center"
                         android:background="@drawable/clock_background"
-                        android:text="DD/MM/YYYY hh:mm"
                         android:textSize="20sp"
                         android:textColor="@color/white"
                         android:layout_weight="6"/>

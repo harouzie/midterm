@@ -34,7 +34,7 @@ import tdtu.fit.hrz.midterm.entity.Transaction;
 import tdtu.fit.hrz.midterm.entity.TransactionCategory;
 import tdtu.fit.hrz.midterm.entity.TransactionDAO;
 
-public class TransactionDetailActivity extends AppCompatActivity {
+public class TransactionDetailActivity extends AppCompatActivityModified {
     ImageView icon;
     TextView transaction_cate, transaction_amount, transaction_date, transaction_currency;
     EditText edtAmount, edtDate, edtTime, edtNote;

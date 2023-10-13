@@ -19,5 +19,8 @@
 
     <string name="dd_mm_yyyy">dd:mm:yyyy</string>
     <string name="all_time_title">History</string>
+    <string name="userInfoTitle">User\'s Information</string>
+    <string name="languageSwitch">Switch Language (English/Vietnamese)</string>
+    <string name="languageText">EN</string>
 
 </resources>
