@@ -23,9 +23,18 @@ public class TransactionViewHolder extends RecyclerView.ViewHolder implements Vi
     TextView transaction_currency;
     Context context;
 
-    public TransactionViewHolder(@NonNull View itemView){
+    // FOR NON RCV
+    public TransactionViewHolder( Context context, @NonNull View itemView){
         super(itemView);
+        this.context = context;
+        transaction_icon = itemView.findViewById(R.id.transaction_icon);
+        transaction_cate = itemView.findViewById(R.id.transaction_category);
+        transaction_amount = itemView.findViewById(R.id.transaction_amount);
+//        transaction_date = itemView.findViewById(R.id.transaction_date);
+        transaction_currency = itemView.findViewById(R.id.transaction_currency);
+        itemView.setOnLongClickListener(this);
     }
+    // FOR RCV
     public TransactionViewHolder(
             @NonNull View itemView, TransactionRCVAdapter transactionRCVAdapter, Context context) {
         super(itemView);
@@ -33,14 +42,14 @@ public class TransactionViewHolder extends RecyclerView.ViewHolder implements Vi
         this.context = context;
         transaction_icon = itemView.findViewById(R.id.transaction_icon);
         transaction_cate = itemView.findViewById(R.id.transaction_category);
-        transaction_amount = itemView.findViewById(R.id.report_total_amount);
+        transaction_amount = itemView.findViewById(R.id.transaction_amount);
         transaction_date = itemView.findViewById(R.id.transaction_date);
-        transaction_currency = itemView.findViewById(R.id.report_currency);
+        transaction_currency = itemView.findViewById(R.id.transaction_currency);
 
         itemView.setOnLongClickListener(this);
     }
 
-    public void update(Transaction transaction) {
+    public void updateRCVHolder(Transaction transaction) {
         this.transaction = transaction;
         transaction_icon.setImageResource(transaction.getCategory().getResourceId());
         transaction_cate.setText(String.format("%s", transaction.getCategory()));
@@ -55,6 +64,22 @@ public class TransactionViewHolder extends RecyclerView.ViewHolder implements Vi
             transaction_amount.setTextColor(context.getResources().getColor(R.color.green));
         } else transaction_amount.setTextColor(context.getResources().getColor(R.color.dark_red));
     }
+
+    public void updateListItem(Transaction transaction) {
+        this.transaction = transaction;
+        transaction_icon.setImageResource(transaction.getCategory().getResourceId());
+        transaction_cate.setText(String.format("%s", transaction.getCategory()));
+        transaction_amount.setText(
+                String.format("%s", transaction.getSpentAmountString()));
+        transaction_currency.setText(
+                String.format("%s", transaction.getCurrency().getCurrencyCode()));
+
+        if (TransactionCategory.INCOME_GIFT.equals(transaction.getCategory())
+                || TransactionCategory.INCOME_SALARY.equals(transaction.getCategory())){
+            transaction_amount.setTextColor(context.getResources().getColor(R.color.green));
+        } else transaction_amount.setTextColor(context.getResources().getColor(R.color.dark_red));
+    }
+
 
     @Override
     public boolean onLongClick(View view) {

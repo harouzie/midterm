@@ -35,7 +35,7 @@ public class TransactionRCVAdapter extends RecyclerView.Adapter<TransactionViewH
     @Override
     public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
         Transaction transaction = mTransactionList.get(position);
-        holder.update(transaction);
+        holder.updateRCVHolder(transaction);
     }
 
     @Override

@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:foreground="?attr/selectableItemBackground">
 
     <ImageView
         android:id="@+id/transaction_icon"
@@ -23,7 +24,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/report_total_amount"
+        android:id="@+id/transaction_amount"
         android:hint="$"
 
         android:textSize="16sp"
@@ -33,20 +34,12 @@
         android:layout_toRightOf="@id/transaction_icon" />
 
     <TextView
-        android:id="@+id/transaction_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/transaction_category"
-        android:layout_alignParentEnd="true"
-        android:hint="DATE" />
-
-    <TextView
-        android:id="@+id/report_currency"
+        android:id="@+id/transaction_currency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16dp"
         android:layout_below="@id/transaction_category"
-        android:layout_toRightOf="@id/report_total_amount"
+        android:layout_toRightOf="@id/transaction_amount"
         android:gravity="left|center_vertical"
         android:layout_marginLeft="2dp"
         android:hint="cur" />
@@ -56,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/transaction_category"
-        android:layout_alignBaseline="@id/report_currency"
+        android:layout_alignBaseline="@id/transaction_currency"
         android:layout_alignParentRight="true"
         android:hint="Note"
         android:textSize="14dp"/>

@@ -53,9 +53,9 @@ public class TransactionDetailActivity extends AppCompatActivity {
         spinner = findViewById(R.id.spinnerCate);
         transaction_icon = findViewById(R.id.transaction_icon);
         transaction_cate = findViewById(R.id.transaction_category);
-        transaction_amount = findViewById(R.id.report_total_amount);
+        transaction_amount = findViewById(R.id.transaction_amount);
         transaction_date = findViewById(R.id.transaction_date);
-        transaction_currency = findViewById(R.id.report_currency);
+        transaction_currency = findViewById(R.id.transaction_currency);
 
         edtAmount = findViewById(R.id.edt_amount);
         edtDate = findViewById(R.id.edt_date);

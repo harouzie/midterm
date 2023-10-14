@@ -52,7 +52,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/report_total_amount"
+                    android:id="@+id/transaction_amount"
                     android:hint="AM"
 
                     android:textSize="16sp"
@@ -70,12 +70,12 @@
                     android:hint="DATE" />
 
                 <TextView
-                    android:id="@+id/report_currency"
+                    android:id="@+id/transaction_currency"
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/transaction_category"
-                    android:layout_toEndOf="@id/report_total_amount"
+                    android:layout_toEndOf="@id/transaction_amount"
                     android:layout_marginLeft="2dp"
                     android:gravity="left|center_vertical"
                     android:hint="CUR" />

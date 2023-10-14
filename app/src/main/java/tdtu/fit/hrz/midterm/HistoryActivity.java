@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
 import tdtu.fit.hrz.midterm.entity.DailyReportAdapter;
 import tdtu.fit.hrz.midterm.entity.TransactionDAO;
@@ -16,7 +15,7 @@ public class HistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alltime_history);
+        setContentView(R.layout.activity_history);
 
         rcv = findViewById(R.id.rcv_days);
 

@@ -4,19 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 
-import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class TransactionListAdapter extends BaseAdapter {
 
-    private Context context;
+    private final Context context;
     private ArrayList<Transaction> items;
-    private int resourceId;
+    private final int resourceId;
 
     public TransactionListAdapter(Context context, ArrayList<Transaction> items, int resourceId) {
         this.context = context;
@@ -46,8 +42,8 @@ public class TransactionListAdapter extends BaseAdapter {
                     .from(context)
                     .inflate(this.resourceId, parent, false);
         }
-        TransactionViewHolder holder = new TransactionViewHolder(convertView);
-        holder.update(items.get(position));
+        TransactionViewHolder holder = new TransactionViewHolder(this.context, convertView);
+        holder.updateListItem(items.get(position));
         return convertView;
     }
 }

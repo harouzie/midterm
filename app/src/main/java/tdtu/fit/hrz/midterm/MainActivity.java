@@ -72,9 +72,9 @@ public class MainActivity extends AppCompatActivityModified {
 
         ArrayList<Transaction> transactions =
 //                transactionDAO.filterByDate(9, 10, 2023);
-                transactionDAO.filterByMonth(9);
+//                transactionDAO.filterByMonth(9);
 //                transactionDAO.filterByCategory(TransactionCategory.INCOME_SALARY);
-//                transactionDAO.getTransactionList(); // return all dataset
+                transactionDAO.getTransactionList(); // return all dataset
 
         mTransactionAdapter = new TransactionRCVAdapter(
                         this, transactions, R.layout.transaction_cardview_item_rcv);
