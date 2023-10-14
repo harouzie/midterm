@@ -43,9 +43,10 @@ public class MainActivity extends AppCompatActivityModified {
     private RecyclerView mRecyclerView;
     private TransactionRCVAdapter mTransactionAdapter;
     private FloatingActionButton fab;
+    private  SimpleDateFormat def;
+    private boolean isFirstRun;
 
     TransactionDAO transactionDAO = TransactionDAO.getInstance();
-
     Handler handler = new Handler();
 
     @SuppressLint("MissingInflatedId")
@@ -62,6 +63,8 @@ public class MainActivity extends AppCompatActivityModified {
         statButton = findViewById(R.id.statButton);
         userButton = findViewById(R.id.userButton);
         fab = findViewById(R.id.fab);
+        def = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
 
         //====INITIALIZE ===================================================
         updateClock(); //Call update clock method
@@ -70,6 +73,22 @@ public class MainActivity extends AppCompatActivityModified {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         datePickerDialog = new DatePickerDialog(this, dateSetListener, year, month, day);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("shouldRestartMainActivity", false);
+        editor.apply();
+        String currentDate = def.format(new Date());
+        boolean shouldReloadDate = preferences.getBoolean("shouldReloadSelectedDate", false);
+
+        if (!shouldReloadDate) {
+            selectedDate.setText(currentDate);
+        } else {
+            String lastDate = preferences.getString("lastSelectedDate", "01/01/1900");
+            selectedDate.setText(lastDate);
+            editor.putBoolean("shouldReloadSelectedDate", false);
+            editor.apply();
+        }
+
 
         //====TESTING, playground is here bois=========================================
 
@@ -130,6 +149,7 @@ public class MainActivity extends AppCompatActivityModified {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), UserInfoActivity.class);
+                intent.putExtra("selectedDate", selectedDate.getText().toString());
                 startActivity(intent);
             }
         });
@@ -153,22 +173,13 @@ public class MainActivity extends AppCompatActivityModified {
             @Override
             public void run() {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy HH:mm", Locale.getDefault());
-                SimpleDateFormat def = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                 String currentDateAndTime = sdf.format(new Date());
-                String currentDate = def.format(new Date());
                 currentTime.setText(currentDateAndTime);
-                selectedDate.setText(currentDate);
                 updateClock();
             }
         }, 1000); // 1000 means update every 1 second
     }
 
-//    public void startHistoryActivity(View view) {
-//
-//    }
-
-
-    // RESTART MAIN SCREEN IF NECESSARY
     @Override
     protected void onResume() {
         super.onResume();
@@ -177,11 +188,13 @@ public class MainActivity extends AppCompatActivityModified {
         boolean shouldRestart = preferences.getBoolean("shouldRestartMainActivity", false);
 
         if (shouldRestart) {
+            // Khởi động lại MainActivity
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-            finish();
+            finish(); // Kết thúc phiên bản cũ của MainActivity
         }
 
+        // Xóa tín hiệu yêu cầu khởi động lại
         preferences.edit().remove("shouldRestartMainActivity").apply();
     }
 

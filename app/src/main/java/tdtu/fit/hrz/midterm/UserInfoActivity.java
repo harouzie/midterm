@@ -50,9 +50,12 @@ public class UserInfoActivity extends AppCompatActivityModified {
     public void onBackPressed() {
 //        Intent intent = new Intent(this, MainActivity.class);
 //        startActivityForResult(intent);
+        String selectedDate = getIntent().getStringExtra("selectedDate");
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("shouldRestartMainActivity", true);
+        editor.putString("lastSelectedDate", selectedDate);
+        editor.putBoolean("shouldReloadSelectedDate", true);
         editor.apply();
         super.onBackPressed();
     }
