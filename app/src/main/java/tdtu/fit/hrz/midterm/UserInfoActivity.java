@@ -2,6 +2,8 @@ package tdtu.fit.hrz.midterm;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -46,8 +48,12 @@ public class UserInfoActivity extends AppCompatActivityModified {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, MainActivity.class);
+//        startActivityForResult(intent);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("shouldRestartMainActivity", true);
+        editor.apply();
         super.onBackPressed();
     }
 }

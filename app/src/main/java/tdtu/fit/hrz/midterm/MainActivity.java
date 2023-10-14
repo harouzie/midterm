@@ -8,10 +8,12 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.icu.text.SimpleDateFormat;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -151,8 +153,11 @@ public class MainActivity extends AppCompatActivityModified {
             @Override
             public void run() {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy HH:mm", Locale.getDefault());
+                SimpleDateFormat def = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                 String currentDateAndTime = sdf.format(new Date());
+                String currentDate = def.format(new Date());
                 currentTime.setText(currentDateAndTime);
+                selectedDate.setText(currentDate);
                 updateClock();
             }
         }, 1000); // 1000 means update every 1 second
@@ -161,4 +166,24 @@ public class MainActivity extends AppCompatActivityModified {
 //    public void startHistoryActivity(View view) {
 //
 //    }
+
+
+    // RESTART MAIN SCREEN IF NECESSARY
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean shouldRestart = preferences.getBoolean("shouldRestartMainActivity", false);
+
+        if (shouldRestart) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        preferences.edit().remove("shouldRestartMainActivity").apply();
+    }
+
+
 }
