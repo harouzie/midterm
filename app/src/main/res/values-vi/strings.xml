@@ -22,5 +22,7 @@
     <string name="userInfoTitle">Thông tin người dùng</string>
     <string name="languageSwitch">Chuyển ngôn ngữ (Tiếng Anh/Tiếng Việt)</string>
     <string name="languageText">VI</string>
+    <string name="expenses_history">Lịch sử chi tiêu</string>
+    <string name="balance">Số dư:</string>
 
 </resources>

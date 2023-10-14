@@ -16,9 +16,7 @@ public class TransactionRCVAdapter extends RecyclerView.Adapter<TransactionViewH
     private LayoutInflater mInflater;
     private Context context;
     private int resourceID;
-    public TransactionRCVAdapter(Context context){
 
-    }
     public TransactionRCVAdapter(Context context, ArrayList<Transaction> transactions, int resourceID){
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
@@ -29,7 +27,8 @@ public class TransactionRCVAdapter extends RecyclerView.Adapter<TransactionViewH
     @Override
     public TransactionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View mItemView = mInflater.inflate(this.resourceID,parent, false);
-        return new TransactionViewHolder(mItemView, this, this.context);
+        return new TransactionViewHolder(mItemView, this,
+                this.context, this.resourceID);
     }
 
     @Override

@@ -42,8 +42,9 @@ public class TransactionListAdapter extends BaseAdapter {
                     .from(context)
                     .inflate(this.resourceId, parent, false);
         }
-        TransactionViewHolder holder = new TransactionViewHolder(this.context, convertView);
-        holder.updateListItem(items.get(position));
+//        TransactionViewHolder holder =
+//            new TransactionViewHolder(this.context, convertView, resourceId);
+//        holder.updateRCVHolder(items.get(position));
         return convertView;
     }
 }

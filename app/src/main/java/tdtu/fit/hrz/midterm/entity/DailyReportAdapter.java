@@ -4,10 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -64,8 +64,8 @@ public class DailyReportAdapter
 
         private final Context context;
         TextView report_date,report_weekday,report_num_exp,report_total_amount,report_currency;
-        ListView transaction_lv;
-
+//        ListView transaction_lv;
+        RecyclerView transaction_rcv;
         DailyReport report;
 
         public DailyReportViewHolder(@NonNull View itemView, Context context) {
@@ -76,10 +76,11 @@ public class DailyReportAdapter
             report_num_exp = itemView.findViewById(R.id.report_num_exp);
             report_total_amount = itemView.findViewById(R.id.transaction_amount);
             report_currency = itemView.findViewById(R.id.transaction_currency);
-            transaction_lv = itemView.findViewById(R.id.report_transactions_list);
+//            transaction_lv = itemView.findViewById(R.id.report_transactions_list);
+            transaction_rcv = itemView.findViewById(R.id.report_transactions);
         }
 
-        public void update(DailyReport report) {
+        public void update(@NonNull DailyReport report) {
             this.report = report;
             report_date.setText(MyStringFormatter.dayFormatter.format(report.getDate()));
             report_weekday.setText(MyStringFormatter.weekdayFormatter.format(report.getDate()));
@@ -88,17 +89,18 @@ public class DailyReportAdapter
             report_total_amount.setText(
                 MyStringFormatter.numberFormat.format(report.getTotalSpent())
             );
+            report_currency.setText(report.getCurrency().getCurrencyCode());
+
+            TransactionRCVAdapter rcvAdapter = new TransactionRCVAdapter(
+                    this.context, report.getTransactions(), R.layout.transaction_itemlist);
+            transaction_rcv.setAdapter(rcvAdapter);
+            transaction_rcv.setLayoutManager(new LinearLayoutManager(this.context));
+
             if (report.getTotalSpent() < 0) {
                 report_total_amount.setTextColor(context.getResources().getColor(R.color.dark_red));
             } else {
                 report_total_amount.setTextColor(context.getResources().getColor(R.color.green));
             }
-
-            report_currency.setText(report.getCurrency().getCurrencyCode());
-            TransactionListAdapter listAdapter = new
-                TransactionListAdapter(this.context,
-                    report.getTransactions(), R.layout.transaction_itemlist);
-            transaction_lv.setAdapter(listAdapter);
         }
     }
 }

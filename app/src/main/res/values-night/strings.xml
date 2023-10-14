@@ -6,4 +6,6 @@
     <string name="txt_transaction_time">TRANSACTION TIME</string>
     <string name="btn_delete">DELETE</string>
     <string name="btn_save">SAVE</string>
+    <string name="expenses_history">Expenses History</string>
+    <string name="balance">Balance:</string>
 </resources>

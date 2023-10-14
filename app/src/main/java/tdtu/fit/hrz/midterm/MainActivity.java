@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import tdtu.fit.hrz.midterm.entity.Transaction;
+import tdtu.fit.hrz.midterm.entity.TransactionCategory;
 import tdtu.fit.hrz.midterm.entity.TransactionDAO;
 import tdtu.fit.hrz.midterm.entity.TransactionRCVAdapter;
 import tdtu.fit.hrz.midterm.entity.TransactionRequest;

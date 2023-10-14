@@ -8,12 +8,18 @@ import tdtu.fit.hrz.midterm.LanguageManager;
 public class MyStringFormatter {
     public final static SimpleDateFormat fullDateFormat
         = new SimpleDateFormat( "EEEE, dd/MM/yyyy");
+    /**
+     * "dd/MM/yyyy"
+     */
+    public final static SimpleDateFormat dateFormatter
+            = new SimpleDateFormat("dd/MM/yyyy");
     public final static NumberFormat numberFormat
             = NumberFormat.getNumberInstance(LanguageManager.locale);
 
     public final static SimpleDateFormat dayFormatter
         = new SimpleDateFormat("dd");
     public final static SimpleDateFormat weekdayFormatter
-        = new SimpleDateFormat("EEEE, MMMM, yyy");
+        = new SimpleDateFormat("EEEE, MMMM, yyyy");
+
 
 }

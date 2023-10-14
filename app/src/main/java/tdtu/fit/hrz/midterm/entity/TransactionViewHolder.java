@@ -17,34 +17,25 @@ public class TransactionViewHolder extends RecyclerView.ViewHolder implements Vi
     TransactionRCVAdapter mAdapter;
     Transaction transaction;
     ImageView transaction_icon;
-    TextView transaction_cate;
-    TextView transaction_amount;
-    TextView transaction_date;
-    TextView transaction_currency;
+    TextView transaction_cate, transaction_amount,
+            transaction_date, transaction_currency, transaction_note;
     Context context;
+    int resourceId;
 
-    // FOR NON RCV
-    public TransactionViewHolder( Context context, @NonNull View itemView){
-        super(itemView);
-        this.context = context;
-        transaction_icon = itemView.findViewById(R.id.transaction_icon);
-        transaction_cate = itemView.findViewById(R.id.transaction_category);
-        transaction_amount = itemView.findViewById(R.id.transaction_amount);
-//        transaction_date = itemView.findViewById(R.id.transaction_date);
-        transaction_currency = itemView.findViewById(R.id.transaction_currency);
-        itemView.setOnLongClickListener(this);
-    }
     // FOR RCV
     public TransactionViewHolder(
-            @NonNull View itemView, TransactionRCVAdapter transactionRCVAdapter, Context context) {
+            @NonNull View itemView, TransactionRCVAdapter transactionRCVAdapter,
+            Context context, int resourceId) {
         super(itemView);
         mAdapter = transactionRCVAdapter;
+        this.resourceId = resourceId;
         this.context = context;
         transaction_icon = itemView.findViewById(R.id.transaction_icon);
         transaction_cate = itemView.findViewById(R.id.transaction_category);
         transaction_amount = itemView.findViewById(R.id.transaction_amount);
         transaction_date = itemView.findViewById(R.id.transaction_date);
         transaction_currency = itemView.findViewById(R.id.transaction_currency);
+        transaction_note = itemView.findViewById(R.id.transaction_note);
 
         itemView.setOnLongClickListener(this);
     }
@@ -57,22 +48,17 @@ public class TransactionViewHolder extends RecyclerView.ViewHolder implements Vi
                 String.format("%s", transaction.getSpentAmountString()));
         transaction_currency.setText(
                 String.format("%s", transaction.getCurrency().getCurrencyCode()));
-        transaction_date.setText(String.format("%s", transaction.getSpentDateString()));
+        String note = transaction.getNote().toString();
+        if (note.length() > 20){
+            note = note.substring(0, 20) + "...";
+        }
+        transaction_note.setText(note);
 
-        if (TransactionCategory.INCOME_GIFT.equals(transaction.getCategory())
-                || TransactionCategory.INCOME_SALARY.equals(transaction.getCategory())){
-            transaction_amount.setTextColor(context.getResources().getColor(R.color.green));
-        } else transaction_amount.setTextColor(context.getResources().getColor(R.color.dark_red));
-    }
+        if (this.resourceId == R.layout.transaction_itemlist){
 
-    public void updateListItem(Transaction transaction) {
-        this.transaction = transaction;
-        transaction_icon.setImageResource(transaction.getCategory().getResourceId());
-        transaction_cate.setText(String.format("%s", transaction.getCategory()));
-        transaction_amount.setText(
-                String.format("%s", transaction.getSpentAmountString()));
-        transaction_currency.setText(
-                String.format("%s", transaction.getCurrency().getCurrencyCode()));
+        } else {
+            transaction_date.setText(String.format("%s", transaction.getSpentDateString()));
+        }
 
         if (TransactionCategory.INCOME_GIFT.equals(transaction.getCategory())
                 || TransactionCategory.INCOME_SALARY.equals(transaction.getCategory())){

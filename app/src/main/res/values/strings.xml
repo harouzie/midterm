@@ -22,5 +22,7 @@
     <string name="userInfoTitle">User\'s Information</string>
     <string name="languageSwitch">Switch Language (English/Vietnamese)</string>
     <string name="languageText">EN</string>
+    <string name="expenses_history">Expenses History</string>
+    <string name="balance">Balance:</string>
 
 </resources>

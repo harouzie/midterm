@@ -100,12 +100,13 @@
                 app:cardCornerRadius="10dp"
                 app:cardElevation="5dp">
 
-                <ListView
-                    android:id="@+id/report_transactions_list"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/report_transactions"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:scrollbars="none"
+                    android:clipToPadding="false"
                     android:layout_below="@id/cardview_daily_report"/>
 
             </androidx.cardview.widget.CardView>

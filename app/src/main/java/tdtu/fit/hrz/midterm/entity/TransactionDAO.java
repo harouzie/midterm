@@ -17,7 +17,9 @@ import java.util.Random;
 public class TransactionDAO implements InterfaceTransactionDao{
     private static TransactionDAO instance;
     private static ArrayList<Transaction> transactionList;
+    private static ArrayList<DailyReport> dailyReports;
     private int dataSize = 500;
+    private static int balance;
     private static Random random;
     public static int numCategory;
     private Date filteredDate = new Date();
@@ -76,7 +78,7 @@ public class TransactionDAO implements InterfaceTransactionDao{
     public ArrayList<DailyReport> getDailyReportList(){
         assert transactionList.size() > 0;
         sortTransactions();
-        ArrayList<DailyReport> dailyReports = new ArrayList<>();
+        dailyReports = new ArrayList<>();
         DailyReport currentReport = null;
         Date currentDate = null;
 
@@ -94,7 +96,17 @@ public class TransactionDAO implements InterfaceTransactionDao{
             assert currentReport != null;
             currentReport.addTransaction(t);
         }
+
         return dailyReports;
+    }
+
+    public int getBalance(){
+        assert dailyReports != null;
+        balance = 0;
+        for (DailyReport report: dailyReports){
+            balance += report.getTotalSpent();
+        }
+        return balance;
     }
 
     public ArrayList<Transaction> filterByCategory(TransactionCategory category){
