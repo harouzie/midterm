@@ -6,10 +6,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+import tdtu.fit.hrz.midterm.entity.CategoryAdapter;
 import tdtu.fit.hrz.midterm.entity.Transaction;
 import tdtu.fit.hrz.midterm.entity.TransactionCategory;
 import tdtu.fit.hrz.midterm.entity.TransactionDAO;
@@ -31,15 +35,22 @@ public class StatisticalActivity extends AppCompatActivityModified {
         mRecyclerView = findViewById(R.id.expListOnCategory);
         filterBtn = findViewById(R.id.filterBtn);
 
+
+        //exp list
         ArrayList<Transaction> transactions =
-//                transactionDAO.filterByDate(9, 10, 2023);
-//                transactionDAO.filterByMonth(9);
                 transactionDAO.filterByCategory(TransactionCategory.INCOME_SALARY);
-//                transactionDAO.getTransactionList(); // return all dataset
 
         mTransactionAdapter = new TransactionRCVAdapter(
                 this, transactions, R.layout.transaction_cardview_item_rcv);
         mRecyclerView.setAdapter(mTransactionAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        //category list
+        List<TransactionCategory> categories = new ArrayList<>(Arrays.asList(TransactionCategory.values()));
+
+        CategoryAdapter categoryAdapter = new CategoryAdapter(categories);
+        RecyclerView listOfCategory = findViewById(R.id.listOfCategory);
+        listOfCategory.setLayoutManager(new LinearLayoutManager(this));
+        listOfCategory.setAdapter(categoryAdapter);
     }
 }
