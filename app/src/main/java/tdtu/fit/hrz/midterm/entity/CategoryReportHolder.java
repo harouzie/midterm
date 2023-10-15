@@ -45,8 +45,9 @@ public class CategoryReportHolder extends RecyclerView.ViewHolder implements Vie
                 MyStringFormatter.numberFormat.format(report.getTotalSpent()));
         category_currency.setText(
                 String.format("%s", report.getCurrency().getCurrencyCode()));
-        category_percentage.setText(context.getResources().getString(R.string.percentage) +
-            String.format(LanguageManager.locale,"%.2f", report.getPercentage()) + " %");
+        category_percentage.setText(
+            String.format("%s%s%%", context.getResources().getString(R.string.percentage),
+            String.format(LanguageManager.locale, "%.2f", report.getPercentage())));
         category_ranking.setText(
             String.format(LanguageManager.locale,"#%02d", report.getRank()));
         if (TransactionCategory.INCOME_GIFT.equals(report.getCategory())

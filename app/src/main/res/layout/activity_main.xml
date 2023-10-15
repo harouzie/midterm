@@ -59,12 +59,13 @@
             android:layout_weight="5"/>
 
         <TextView
-            android:id="@+id/thisMonthExpValue"
+            android:id="@+id/month_exp_amount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="6.223.000 VND"
+            android:hint="6.223.000 VND"
             android:textSize="24sp"
-            android:textStyle="italic"
+            android:textColor="@color/red"
+            android:textStyle="normal"
             android:gravity="center"
             android:layout_weight="5"/>
 
@@ -161,13 +162,14 @@
             android:layout_weight="4" />
 
         <TextView
-            android:id="@+id/expOnDateValue"
+            android:id="@+id/date_exp_amount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="320.000 VND"
+            android:hint="320.000 VND"
             android:textSize="24sp"
-            android:textStyle="italic"
+            android:textStyle="normal"
+            android:textColor="@color/dark_red"
             android:gravity="center"
             android:layout_weight="6" />
 

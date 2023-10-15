@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  */
 public class TransactionRCVAdapter extends RecyclerView.Adapter<TransactionViewHolder> {
-    private static ArrayList<Transaction> mTransactionList;
+    private ArrayList<Transaction> mTransactionList;
     private LayoutInflater mInflater;
     private Context context;
     private int resourceID;
@@ -42,4 +42,8 @@ public class TransactionRCVAdapter extends RecyclerView.Adapter<TransactionViewH
         return mTransactionList.size();
     }
 
+    public void updateData(ArrayList<Transaction> data){
+        mTransactionList = data;
+        notifyDataSetChanged();
+    }
 }

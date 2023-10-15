@@ -168,6 +168,17 @@ public class TransactionDAO implements InterfaceTransactionDao{
         }
         return balance;
     }
+    public int calculateTotalSpent(ArrayList<Transaction> transactions){
+        int sum = 0;
+        for (Transaction transaction: transactions){
+            if (isIncome(transaction.getCategory())){
+                sum += transaction.getSpentAmount();
+            } else {
+                sum -= transaction.getSpentAmount();
+            }
+        }
+        return sum;
+    }
     private void collectCategoricalReports(boolean onlyIncome){
         categoricalReports = new ArrayList<>();
 

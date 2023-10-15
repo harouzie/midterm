@@ -9,6 +9,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 
 import android.os.Bundle;
@@ -28,6 +29,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import tdtu.fit.hrz.midterm.entity.DailyReport;
+import tdtu.fit.hrz.midterm.entity.MyStringFormatter;
 import tdtu.fit.hrz.midterm.entity.Transaction;
 import tdtu.fit.hrz.midterm.entity.TransactionCategory;
 import tdtu.fit.hrz.midterm.entity.TransactionDAO;
@@ -38,8 +41,10 @@ public class MainActivity extends AppCompatActivityModified {
 
     private Button buttonSelectDate;
     private ImageButton allTimeButton, statButton, userButton;
-    private TextView selectedDate, currentTime;
+    private TextView selectedDate, currentTime, date_amount, month_amount;
     private DatePickerDialog datePickerDialog;
+    private Calendar calendar;
+    private Date today;
     private RecyclerView mRecyclerView;
     private TransactionRCVAdapter mTransactionAdapter;
     private FloatingActionButton fab;
@@ -62,6 +67,8 @@ public class MainActivity extends AppCompatActivityModified {
         allTimeButton = findViewById(R.id.allTimeButton);
         statButton = findViewById(R.id.statButton);
         userButton = findViewById(R.id.userButton);
+        date_amount = findViewById(R.id.date_exp_amount);
+        month_amount = findViewById(R.id.month_exp_amount);
         fab = findViewById(R.id.fab);
         def = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
@@ -69,10 +76,11 @@ public class MainActivity extends AppCompatActivityModified {
         setListeners();
         //====INITIALIZE ===================================================
         updateClock(); //Call update clock method
-        Calendar calendar = Calendar.getInstance();
+        calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
+        today = calendar.getTime();
         datePickerDialog = new DatePickerDialog(this, dateSetListener, year, month, day);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
@@ -93,16 +101,35 @@ public class MainActivity extends AppCompatActivityModified {
         //====TESTING, playground is here bois=========================================
         // month from calender is index 0
         ArrayList<Transaction> transactions = transactionDAO.filterByDate(day, month, year);
-
-
         mTransactionAdapter = new TransactionRCVAdapter(
                         this, transactions, R.layout.transaction_cardview_item_rcv);
         mRecyclerView.setAdapter(mTransactionAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
+        // update amount
+        updateExpenseStringByDate(today);
     }
 
+    /**
+     * update this month and today expense amount
+     */
+    private void updateExpenseStringByDate(Date date){
+        calendar.setTime(date);
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        ArrayList<Transaction> dateTransactions = transactionDAO.filterByDate(day, month, year);
+        ArrayList<Transaction> monthTransactions = transactionDAO.filterByMonth(month);
+
+        DailyReport report = new DailyReport(date, dateTransactions);
+        int dam = report.getTotalSpent();
+        int mam = transactionDAO.calculateTotalSpent(monthTransactions);
+        if (dam > 0) date_amount.setTextColor(getResources().getColor(R.color.green));
+        if (mam > 0) month_amount.setTextColor(getResources().getColor(R.color.green));
+        date_amount.setText(String.format("%s VND", MyStringFormatter.numberFormat.format(dam)));
+        month_amount.setText(String.format("%s VND", MyStringFormatter.numberFormat.format(mam)));
+
+    }
     private void setListeners(){
         //====CLICK LISTENER SETTING========================================
         buttonSelectDate.setOnClickListener(new View.OnClickListener() {
@@ -156,12 +183,18 @@ public class MainActivity extends AppCompatActivityModified {
         });
     }
 
-    private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+    private DatePickerDialog.OnDateSetListener dateSetListener
+        = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             // Xử lý khi người dùng đã chọn ngày
             String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
             selectedDate.setText(date);
+            mTransactionAdapter.updateData(
+                transactionDAO.filterByDate(dayOfMonth, monthOfYear, year));
+
+            calendar.set(year, monthOfYear, dayOfMonth);
+            updateExpenseStringByDate(calendar.getTime());
         }
     };
 

@@ -28,6 +28,13 @@ public class DailyReport {
         this();
         this.date = date;
     }
+
+    public DailyReport(@NonNull Date date, ArrayList<Transaction> transactions) {
+        this();
+        this.date = date;
+        this.transactions = transactions;
+    }
+
     public void addTransaction(Transaction t){
         this.transactions.add(t);
     }

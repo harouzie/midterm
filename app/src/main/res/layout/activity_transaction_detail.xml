@@ -152,7 +152,8 @@
                     android:id="@+id/lilo_date"
                     android:layout_below="@id/lilo_amount"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
                     <TextView
                         android:id="@+id/txtView_date"
                         android:text="@string/txt_spent_date"
@@ -162,10 +163,10 @@
                         android:layout_weight="6"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"/>
-                    <EditText
+                    <TextView
                         android:id="@+id/edt_date"
-                        android:textColor="@color/black"
-                        android:inputType="date"
+                        android:textColor="@color/blue"
+                        android:textSize="16sp"
                         android:layout_weight="4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"/>
@@ -175,7 +176,9 @@
                     android:id="@+id/lilo_time"
                     android:layout_below="@id/lilo_date"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp">
                     <TextView
                         android:id="@+id/txtView_time"
                         android:text="@string/txt_transaction_time"
@@ -185,10 +188,10 @@
                         android:layout_weight="6"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"/>
-                    <EditText
+                    <TextView
                         android:id="@+id/edt_time"
-                        android:textColor="@color/black"
-                        android:inputType="datetime"
+                        android:textColor="@color/blue"
+                        android:textSize="16sp"
                         android:layout_weight="4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"/>

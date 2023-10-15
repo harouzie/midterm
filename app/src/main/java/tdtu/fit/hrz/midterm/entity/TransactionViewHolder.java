@@ -51,8 +51,8 @@ public class TransactionViewHolder extends RecyclerView.ViewHolder
         transaction_currency.setText(
                 String.format("%s", transaction.getCurrency().getCurrencyCode()));
         String note = transaction.getNote().toString();
-        if (note.length() > 20){
-            note = note.substring(0, 20) + "...";
+        if (note.length() > 15){
+            note = note.substring(0, 15) + "...";
         }
         transaction_note.setText(note);
 

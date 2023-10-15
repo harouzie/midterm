@@ -36,8 +36,9 @@ import tdtu.fit.hrz.midterm.entity.TransactionDAO;
 
 public class TransactionDetailActivity extends AppCompatActivityModified {
     ImageView transaction_icon;
-    TextView transaction_cate, transaction_amount, transaction_date, transaction_currency;
-    EditText edtAmount, edtDate, edtTime, edtNote;
+    TextView transaction_cate, transaction_amount, transaction_date,
+            transaction_currency, edtTime, edtDate;
+    EditText edtAmount, edtNote;
     Spinner spinner;
     static TransactionDAO transactionDAO;
     private static final SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
