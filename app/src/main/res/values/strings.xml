@@ -24,5 +24,9 @@
     <string name="languageText">EN</string>
     <string name="expenses_history">Expenses History</string>
     <string name="balance">Balance:</string>
+    <string name="changeAvatar">Change Avatar</string>
+    <string name="changeName">Change Name</string>
+    <string name="Save">Save</string>
+    <string name="credInfo">Developed by:\nLe Phuoc Thinh\nDo Pham Quang Hung\nCao Khanh Tan</string>
 
 </resources>
