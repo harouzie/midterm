@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
@@ -19,11 +20,12 @@ import tdtu.fit.hrz.midterm.entity.TransactionCategory;
 import tdtu.fit.hrz.midterm.entity.TransactionDAO;
 import tdtu.fit.hrz.midterm.entity.TransactionRCVAdapter;
 
-public class StatisticalActivity extends AppCompatActivityModified {
+public class StatisticalActivity extends AppCompatActivityModified implements CategoryAdapter.OnItemClickListener {
 
     private Button filterBtn;
     private RecyclerView mRecyclerView;
     private TransactionRCVAdapter mTransactionAdapter;
+    private TransactionCategory selectedCategory;
     TransactionDAO transactionDAO = TransactionDAO.getInstance();
 
     @SuppressLint("MissingInflatedId")
@@ -38,7 +40,7 @@ public class StatisticalActivity extends AppCompatActivityModified {
 
         //exp list
         ArrayList<Transaction> transactions =
-                transactionDAO.filterByCategory(TransactionCategory.INCOME_SALARY);
+                transactionDAO.getTransactionList();
 
         mTransactionAdapter = new TransactionRCVAdapter(
                 this, transactions, R.layout.transaction_cardview_item_rcv);
@@ -51,6 +53,29 @@ public class StatisticalActivity extends AppCompatActivityModified {
         CategoryAdapter categoryAdapter = new CategoryAdapter(categories);
         RecyclerView listOfCategory = findViewById(R.id.listOfCategory);
         listOfCategory.setLayoutManager(new LinearLayoutManager(this));
+
+        categoryAdapter.setOnItemClickListener(this);
         listOfCategory.setAdapter(categoryAdapter);
+
+        //filter button
+        filterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (selectedCategory != null) {
+                    ArrayList<Transaction> transactions =
+                            transactionDAO.filterByCategory(selectedCategory);
+
+                    mTransactionAdapter = new TransactionRCVAdapter(
+                            StatisticalActivity.this, transactions, R.layout.transaction_cardview_item_rcv);
+                    mRecyclerView.setAdapter(mTransactionAdapter);
+                    mRecyclerView.setLayoutManager(new LinearLayoutManager(StatisticalActivity.this));
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onItemClick(TransactionCategory category) {
+        selectedCategory = category;
     }
 }

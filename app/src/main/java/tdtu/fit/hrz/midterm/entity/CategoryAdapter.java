@@ -20,6 +20,16 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         this.categories = categories;
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(TransactionCategory category);
+    }
+
+    private OnItemClickListener listener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
     public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvCategoryName;
 
@@ -54,10 +64,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         } else {
             holder.itemView.setBackgroundColor(Color.TRANSPARENT);
         }
+
+        if (listener != null) {
+            listener.onItemClick(category);
+        }
     }
 
     @Override
     public int getItemCount() {
         return categories.size();
     }
+
 }
