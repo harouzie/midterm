@@ -123,7 +123,7 @@ public class TransactionDAO implements InterfaceTransactionDao{
         for (Transaction t: transactionList){
             filteredDate = t.getSpentDate();
             calendar.setTime(filteredDate);
-            if(calendar.get(Calendar.MONTH) == (month-1)){
+            if(calendar.get(Calendar.MONTH) == (month)){
                 transactions.add(t);
             }
         }
@@ -136,7 +136,7 @@ public class TransactionDAO implements InterfaceTransactionDao{
             filteredDate = t.getSpentDate();
             calendar.setTime(filteredDate);
             if(calendar.get(Calendar.DAY_OF_MONTH) == day &&
-                calendar.get(Calendar.MONTH) == (month-1) &&
+                calendar.get(Calendar.MONTH) == (month) &&
                 calendar.get(Calendar.YEAR) == year){
                 transactions.add(t);
             }

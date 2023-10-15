@@ -22,7 +22,8 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="0dp"
-            android:background="@drawable/rounded_panel" />
+            android:background="@drawable/rounded_panel"
+            android:backgroundTint="@color/light_green_pastel"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/expListOnCategory"
@@ -44,12 +45,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listOfCategory"
-        android:layout_below="@id/textView"
-        android:layout_above="@id/filterBtn"
         android:layout_width="150dp"
         android:layout_height="match_parent"
+        android:layout_above="@id/filterBtn"
+        android:layout_below="@id/textView"
         android:layout_alignParentEnd="true"
-        android:layout_margin="10dp"/>
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp" />
 
     <!--TODO: open a dialog that has option to choose which categories to filter -->
     <Button

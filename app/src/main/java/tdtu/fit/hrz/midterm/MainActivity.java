@@ -89,14 +89,10 @@ public class MainActivity extends AppCompatActivityModified {
             editor.apply();
         }
 
-
         //====TESTING, playground is here bois=========================================
+        // month from calender is index 0
+        ArrayList<Transaction> transactions = transactionDAO.filterByDate(day, month, year);
 
-        ArrayList<Transaction> transactions =
-//                transactionDAO.filterByDate(9, 10, 2023);
-//                transactionDAO.filterByMonth(9);
-                transactionDAO.filterByCategory(TransactionCategory.INCOME_SALARY);
-//                transactionDAO.getTransactionList(); // return all dataset
 
         mTransactionAdapter = new TransactionRCVAdapter(
                         this, transactions, R.layout.transaction_cardview_item_rcv);
@@ -141,6 +137,8 @@ public class MainActivity extends AppCompatActivityModified {
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Sample Action for Statistics",
                         Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), StatisticalActivity.class);
+                startActivity(intent);
             }
         });
 

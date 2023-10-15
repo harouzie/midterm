@@ -206,10 +206,10 @@
             android:background="@drawable/rounded_panel" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/expListOnCategory"
+            android:id="@+id/expListOnDate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"/>
+            android:layout_margin="10dp" />
 
     </FrameLayout>
 

@@ -75,7 +75,9 @@ public class StatisticalActivity extends AppCompatActivityModified implements Ca
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(StatisticalActivity.this));
 
                     DecimalFormat df = new DecimalFormat("#.##");
-                    String percentage = df.format((float) transactionDAO.filterByCategory(selectedCategory).size()/transactionDAO.getTransactionList().size()*100);
+                    String percentage = df.format(
+                        (float) transactionDAO.filterByCategory(selectedCategory).size()/
+                                transactionDAO.getTransactionList().size()*100);
                     info.setText("Percentage of this kind: " + percentage + "%");
                 }
             }
