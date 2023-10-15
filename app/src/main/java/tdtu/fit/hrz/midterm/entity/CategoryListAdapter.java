@@ -8,13 +8,13 @@ import android.widget.BaseAdapter;
 
 import java.util.ArrayList;
 
-public class TransactionListAdapter extends BaseAdapter {
+public class CategoryListAdapter extends BaseAdapter {
 
     private final Context context;
-    private ArrayList<Transaction> items;
+    private final ArrayList<Transaction> items;
     private final int resourceId;
 
-    public TransactionListAdapter(Context context, ArrayList<Transaction> items, int resourceId) {
+    public CategoryListAdapter(Context context, ArrayList<Transaction> items, int resourceId) {
         this.context = context;
         this.items = items;
         this.resourceId = resourceId;

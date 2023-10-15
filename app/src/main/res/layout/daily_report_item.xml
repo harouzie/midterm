@@ -31,6 +31,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:foreground="?attr/selectableItemBackground"
                     android:padding="8dp">
 
                     <TextView
@@ -104,7 +105,7 @@
                     android:id="@+id/report_transactions"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:background="@color/light_gray"
                     android:scrollbars="none"
                     android:clipToPadding="false"
                     android:layout_below="@id/cardview_daily_report"/>

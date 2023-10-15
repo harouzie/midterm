@@ -33,7 +33,8 @@ public class LanguageManager {
     public void setLang(String code) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("lang", code);
-        editor.commit();
+//        editor.commit();
+        editor.apply();
     }
 
 }

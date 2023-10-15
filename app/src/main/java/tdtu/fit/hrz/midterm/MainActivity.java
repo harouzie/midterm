@@ -65,7 +65,8 @@ public class MainActivity extends AppCompatActivityModified {
         fab = findViewById(R.id.fab);
         def = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
-
+        // SET LISTENERS FOR BUTTONS AND VIEWS
+        setListeners();
         //====INITIALIZE ===================================================
         updateClock(); //Call update clock method
         Calendar calendar = Calendar.getInstance();
@@ -100,7 +101,9 @@ public class MainActivity extends AppCompatActivityModified {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
+    }
 
+    private void setListeners(){
         //====CLICK LISTENER SETTING========================================
         buttonSelectDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,9 +127,9 @@ public class MainActivity extends AppCompatActivityModified {
         allTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Sample Action for All Time History",
+                Toast.makeText(MainActivity.this, "All Time History",
                         Toast.LENGTH_SHORT).show();
-                Intent watchHistory = new Intent(MainActivity.this, HistoryActivity.class);
+                Intent watchHistory = new Intent(getApplicationContext(), HistoryActivity.class);
                 startActivity(watchHistory);
             }
         });
@@ -135,9 +138,9 @@ public class MainActivity extends AppCompatActivityModified {
         statButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Sample Action for Statistics",
+                Toast.makeText(MainActivity.this, "Statistics",
                         Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), StatisticalActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CategoricalStatisticActivity.class);
                 startActivity(intent);
             }
         });
@@ -151,7 +154,6 @@ public class MainActivity extends AppCompatActivityModified {
                 startActivity(intent);
             }
         });
-
     }
 
     private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
