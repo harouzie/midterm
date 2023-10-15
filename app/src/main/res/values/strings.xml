@@ -28,5 +28,8 @@
     <string name="changeName">Change Name</string>
     <string name="Save">Save</string>
     <string name="credInfo">Developed by:\nLe Phuoc Thinh\nDo Pham Quang Hung\nCao Khanh Tan</string>
+    <string name="view_income">View Income</string>
+    <string name="categorical_statistics">Categorical Statistics</string>
+    <string name="percentage">"for "</string>
 
 </resources>

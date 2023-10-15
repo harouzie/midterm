@@ -77,8 +77,8 @@ public class TransactionDAO implements InterfaceTransactionDao{
     //=======================================================================
     //    FILTERER
 
-    public ArrayList<CategoryReport> getCategoricalReports(){
-        collectCategoricalReports();
+    public ArrayList<CategoryReport> getCategoricalReports(boolean takingIncome){
+        collectCategoricalReports(takingIncome);
         //sort by amount spent, descending
         categoricalReports.sort(new Comparator<CategoryReport>() {
             @Override
@@ -86,8 +86,16 @@ public class TransactionDAO implements InterfaceTransactionDao{
                 return r2.getTotalSpent() - r1.getTotalSpent();
             }
         });
+
+        int total = 0;
         for (CategoryReport report: categoricalReports) {
-            report.setPercentage(1.0f);
+            total += report.getTotalSpent();
+        }
+        int rank = 1;
+        for (CategoryReport report: categoricalReports) {
+            report.setPercentage(report.getTotalSpent()*100/(1.0*total));
+            report.setRank(rank);
+            rank+=1;
         }
         return categoricalReports;
     }
@@ -160,16 +168,27 @@ public class TransactionDAO implements InterfaceTransactionDao{
         }
         return balance;
     }
-    private void collectCategoricalReports(){
+    private void collectCategoricalReports(boolean onlyIncome){
         categoricalReports = new ArrayList<>();
 
         for (TransactionCategory category: TransactionCategory.values()){
-            categoricalReports.add(
-                    new CategoryReport(
-                            category,
-                            this.filterByCategory(category)
-                    ));
+            if(onlyIncome){
+                if (isIncome(category)){
+                    categoricalReports.add(new CategoryReport(
+                        category, this.filterByCategory(category)));
+                }
+            } else {
+                if (!isIncome(category))
+                    categoricalReports.add(new CategoryReport(
+                    category, this.filterByCategory(category)));
+            }
         }
+    }
+    private boolean isIncome(TransactionCategory category){
+        return (
+                category.toString().equals(TransactionCategory.INCOME_GIFT.toString()) ||
+                        category.toString().equals(TransactionCategory.INCOME_SALARY.toString())
+        );
     }
     //=======================================================================
     public ArrayList<Transaction> getTransactionList() {

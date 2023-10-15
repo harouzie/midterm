@@ -1,20 +1,31 @@
 package tdtu.fit.hrz.midterm;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.graphics.ColorSpace;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import tdtu.fit.hrz.midterm.entity.CategoryAdapter;
 import tdtu.fit.hrz.midterm.entity.Transaction;
@@ -29,6 +40,7 @@ public class StatisticalActivity extends AppCompatActivityModified implements Ca
     private TransactionRCVAdapter mTransactionAdapter;
     private TransactionCategory selectedCategory;
     private TextView info;
+    private PieChart pieChart;
     TransactionDAO transactionDAO = TransactionDAO.getInstance();
 
     @SuppressLint("MissingInflatedId")
@@ -82,6 +94,86 @@ public class StatisticalActivity extends AppCompatActivityModified implements Ca
                 }
             }
         });
+
+        //PieChart
+
+        pieChart = findViewById(R.id.pieChart);
+
+        // Create a HashMap to map each category to a color
+        HashMap<TransactionCategory, Integer> categoryColors = new HashMap<>();
+
+        // add color to hashmap
+        int[] colorIds = new int[] { R.color.pie1,
+                                    R.color.pie2,
+                                    R.color.pie3,
+                                    R.color.pie4,
+                                    R.color.pie5,
+                                    R.color.pie6,
+                                    R.color.pie7,
+                                    R.color.pie8,
+                                    R.color.pie9,
+                                    R.color.pie10};
+
+        ArrayList<Integer> colors = new ArrayList<Integer>();
+        for (int i = 0; i < colorIds.length; i++) {
+            colors.add(ContextCompat.getColor(this, colorIds[i]));
+        }
+
+        int counter = 0;
+        for (TransactionCategory category : categories) {
+            int color = colors.get(counter);
+            if (counter < colors.size()-1) {
+                counter++;
+            }
+            categoryColors.put(category, color);
+        }
+
+
+        // Create a list of entries
+        ArrayList<PieEntry> entries = new ArrayList<>();
+        for (TransactionCategory category : categories) {
+            float percentage = (float)transactionDAO.filterByCategory(category).size() / transactionDAO.getTransactionList().size() * 100;
+            entries.add(new PieEntry(percentage));
+        }
+
+        // Create a PieDataSet
+        PieDataSet dataSet = new PieDataSet(entries, "Categories");
+        dataSet.setColors(colors);
+        dataSet.setValueTextSize(12f);
+
+        class CustomPercentFormatter extends PercentFormatter {
+            public CustomPercentFormatter(PieChart pieChart) {
+                super(pieChart);
+            }
+
+            @Override
+            public String getFormattedValue(float value) {
+                return super.getFormattedValue(value).replace(" ", "");
+            }
+        }
+
+
+        dataSet.setValueFormatter(new CustomPercentFormatter(pieChart));
+        dataSet.setSliceSpace(1.5f);
+
+        // Create a PieData object
+        PieData data = new PieData(dataSet);
+
+        //setting..
+        pieChart.getDescription().setEnabled(false);
+        pieChart.setUsePercentValues(true);
+
+        // Set the data and the legend
+        pieChart.setData(data);
+        pieChart.getLegend().setEnabled(false); // Hide the legend
+
+        // Set the hole radius
+        pieChart.setHoleRadius(50f);
+        pieChart.setTransparentCircleRadius(55f);
+
+        // Enable rotation of the chart by touch
+        pieChart.setRotationEnabled(true);
+        pieChart.setHighlightPerTapEnabled(true);
     }
 
     @Override

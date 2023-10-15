@@ -28,5 +28,8 @@
     <string name="changeName">Đổi tên</string>
     <string name="Save">Lưu</string>
     <string name="credInfo">Phát triển bởi:\nLê Phước Thịnh\nĐỗ Phạm Quang Hưng\nCao Khánh Tân</string>
+    <string name="view_income">Xem thu nhập</string>
+    <string name="categorical_statistics">Thống kê chi tiêu</string>
+    <string name="percentage">"Chiếm "</string>
 
 </resources>

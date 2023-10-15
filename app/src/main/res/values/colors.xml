@@ -15,4 +15,15 @@
     <color name="light_yellow_pastel">#FFFFA5</color>
     <color name="light_gray">#EAEAEA</color>
 
+    <color name="pie1">#fc8b8b</color>
+    <color name="pie2">#fca28b</color>
+    <color name="pie3">#fcc48b</color>
+    <color name="pie4">#fced8b</color>
+    <color name="pie5">#defc8b</color>
+    <color name="pie6">#bafc8b</color>
+    <color name="pie7">#8bfcb5</color>
+    <color name="pie8">#8bfcf9</color>
+    <color name="pie9">#8badfc</color>
+    <color name="pie10">#a98bfc</color>
+
 </resources>
