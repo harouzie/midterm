@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +28,7 @@ public class StatisticalActivity extends AppCompatActivityModified implements Ca
     private RecyclerView mRecyclerView;
     private TransactionRCVAdapter mTransactionAdapter;
     private TransactionCategory selectedCategory;
+    private TextView info;
     TransactionDAO transactionDAO = TransactionDAO.getInstance();
 
     @SuppressLint("MissingInflatedId")
@@ -36,6 +39,7 @@ public class StatisticalActivity extends AppCompatActivityModified implements Ca
 
         mRecyclerView = findViewById(R.id.expListOnCategory);
         filterBtn = findViewById(R.id.filterBtn);
+        info = findViewById(R.id.textView);
 
 
         //exp list
@@ -69,6 +73,10 @@ public class StatisticalActivity extends AppCompatActivityModified implements Ca
                             StatisticalActivity.this, transactions, R.layout.transaction_cardview_item_rcv);
                     mRecyclerView.setAdapter(mTransactionAdapter);
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(StatisticalActivity.this));
+
+                    DecimalFormat df = new DecimalFormat("#.##");
+                    String percentage = df.format((float) transactionDAO.filterByCategory(selectedCategory).size()/transactionDAO.getTransactionList().size()*100);
+                    info.setText("Percentage of this kind: " + percentage + "%");
                 }
             }
         });
