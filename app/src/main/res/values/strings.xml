@@ -24,5 +24,8 @@
     <string name="languageText">EN</string>
     <string name="expenses_history">Expenses History</string>
     <string name="balance">Balance:</string>
+    <string name="view_income">View Income</string>
+    <string name="categorical_statistics">Categorical Statistics</string>
+    <string name="percentage">"for "</string>
 
 </resources>

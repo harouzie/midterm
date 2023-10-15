@@ -24,5 +24,8 @@
     <string name="languageText">VI</string>
     <string name="expenses_history">Lịch sử chi tiêu</string>
     <string name="balance">Số dư:</string>
+    <string name="view_income">Xem thu nhập</string>
+    <string name="categorical_statistics">Thống kê chi tiêu</string>
+    <string name="percentage">"Chiếm "</string>
 
 </resources>

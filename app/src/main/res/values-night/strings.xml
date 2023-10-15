@@ -8,4 +8,6 @@
     <string name="btn_save">SAVE</string>
     <string name="expenses_history">Expenses History</string>
     <string name="balance">Balance:</string>
+    <string name="view_income">View Income</string>
+    <string name="percentage">"Percentage "</string>
 </resources>
