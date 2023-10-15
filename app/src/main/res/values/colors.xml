@@ -2,7 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="transparent">#80FFFFFF</color>
+    <color name="partial_transparent">#80FFFFFF</color>
+    <color name="transparent">#FFFFFFFF</color>
     <color name="blue">#16337C</color>
     <color name="natural_titanium">#878681</color>
     <color name="green">#00BC03</color>

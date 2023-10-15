@@ -13,7 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import tdtu.fit.hrz.midterm.R;
 import tdtu.fit.hrz.midterm.TransactionDetailActivity;
 
-public class TransactionViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
+public class TransactionViewHolder extends RecyclerView.ViewHolder
+        implements View.OnLongClickListener, View.OnClickListener {
     TransactionRCVAdapter mAdapter;
     Transaction transaction;
     ImageView transaction_icon;
@@ -38,6 +39,7 @@ public class TransactionViewHolder extends RecyclerView.ViewHolder implements Vi
         transaction_note = itemView.findViewById(R.id.transaction_note);
 
         itemView.setOnLongClickListener(this);
+        itemView.setOnClickListener(this);
     }
 
     public void updateRCVHolder(Transaction transaction) {
@@ -77,5 +79,19 @@ public class TransactionViewHolder extends RecyclerView.ViewHolder implements Vi
 
         context.startActivity(displayIntent);
         return true;
+    }
+
+    /**
+     * @param view transaction view holder
+     */
+    @Override
+    public void onClick(View view) {
+        Intent displayIntent = new Intent(context, TransactionDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("transaction_id", transaction.getTransactionId());
+        displayIntent.setAction(TransactionRequest.DISPLAY.getAction());
+        displayIntent.putExtras(bundle);
+
+        context.startActivity(displayIntent);
     }
 }

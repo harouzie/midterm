@@ -2,6 +2,7 @@ package tdtu.fit.hrz.midterm.entity;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import tdtu.fit.hrz.midterm.LanguageManager;
 
@@ -21,5 +22,7 @@ public class MyStringFormatter {
     public static SimpleDateFormat weekdayFormatter
         = new SimpleDateFormat("EEEE, MMMM, yyyy", LanguageManager.locale);
 
+    public void updateLocale(){
 
+    }
 }

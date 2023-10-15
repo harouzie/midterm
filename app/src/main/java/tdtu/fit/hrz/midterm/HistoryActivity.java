@@ -11,7 +11,7 @@ import tdtu.fit.hrz.midterm.entity.DailyReportAdapter;
 import tdtu.fit.hrz.midterm.entity.MyStringFormatter;
 import tdtu.fit.hrz.midterm.entity.TransactionDAO;
 
-public class HistoryActivity extends AppCompatActivity {
+public class HistoryActivity extends AppCompatActivityModified{
 
     private RecyclerView rcv;
     TextView tvBalance;

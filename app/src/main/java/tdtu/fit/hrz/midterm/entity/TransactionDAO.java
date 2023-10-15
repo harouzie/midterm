@@ -1,5 +1,7 @@
 package tdtu.fit.hrz.midterm.entity;
 
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ public class TransactionDAO implements InterfaceTransactionDao{
     private static TransactionDAO instance;
     private static ArrayList<Transaction> transactionList;
     private static ArrayList<DailyReport> dailyReports;
+    private static ArrayList<CategoryReport> categoricalReports;
     private int dataSize = 500;
     private static int balance;
     private static Random random;
@@ -40,10 +43,8 @@ public class TransactionDAO implements InterfaceTransactionDao{
         return instance;
     }
 
-    public ArrayList<Transaction> getTransactionList() {
-        return transactionList;
-    }
     //=======================================================================
+    // DUMMY DATA INITIALIZE PROCEDURES
     private ArrayList<Transaction> addSyntheticTransaction(int num){
         ArrayList<Transaction> trs = new ArrayList<>();
         int amount;
@@ -74,7 +75,23 @@ public class TransactionDAO implements InterfaceTransactionDao{
         });
     }
     //=======================================================================
-//    FILTERER
+    //    FILTERER
+
+    public ArrayList<CategoryReport> getCategoricalReports(){
+        collectCategoricalReports();
+        //sort by amount spent, descending
+        categoricalReports.sort(new Comparator<CategoryReport>() {
+            @Override
+            public int compare(CategoryReport r1, CategoryReport r2) {
+                return r2.getTotalSpent() - r1.getTotalSpent();
+            }
+        });
+        for (CategoryReport report: categoricalReports) {
+            report.setPercentage(1.0f);
+        }
+        return categoricalReports;
+    }
+
     public ArrayList<DailyReport> getDailyReportList(){
         assert transactionList.size() > 0;
         sortTransactions();
@@ -98,15 +115,6 @@ public class TransactionDAO implements InterfaceTransactionDao{
         }
 
         return dailyReports;
-    }
-
-    public int getBalance(){
-        assert dailyReports != null;
-        balance = 0;
-        for (DailyReport report: dailyReports){
-            balance += report.getTotalSpent();
-        }
-        return balance;
     }
 
     public ArrayList<Transaction> filterByCategory(TransactionCategory category){
@@ -143,8 +151,31 @@ public class TransactionDAO implements InterfaceTransactionDao{
         }
         return transactions;
     }
+    //==AUXILIARY SUPPORT========================================================
+    public int getBalance(){
+        assert dailyReports != null;
+        balance = 0;
+        for (DailyReport report: dailyReports){
+            balance += report.getTotalSpent();
+        }
+        return balance;
+    }
+    private void collectCategoricalReports(){
+        categoricalReports = new ArrayList<>();
+
+        for (TransactionCategory category: TransactionCategory.values()){
+            categoricalReports.add(
+                    new CategoryReport(
+                            category,
+                            this.filterByCategory(category)
+                    ));
+        }
+    }
     //=======================================================================
-    //=======================================================================
+    public ArrayList<Transaction> getTransactionList() {
+        return transactionList;
+    }
+
     @Override
     public Transaction getSingleTransaction(int transactionId) {
         for (Transaction transaction: transactionList){

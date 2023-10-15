@@ -12,4 +12,11 @@
         <item name="android:title">Transaction History</item>
     </style>
 
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Default selectableItemBackground -->
+    </style>
+        <style name="ListViewTheme" parent="AppTheme">
+            <item name="android:selectableItemBackground">@android:color/transparent</item>
+        </style>
+
 </resources>
