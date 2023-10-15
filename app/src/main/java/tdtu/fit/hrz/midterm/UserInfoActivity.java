@@ -1,20 +1,9 @@
 package tdtu.fit.hrz.midterm;
 
-import static android.widget.Toast.makeText;
-
-import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.ParcelFileDescriptor;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -23,19 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.core.content.ContextCompat;
 
-import java.io.File;
-import java.io.FileDescriptor;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.List;
 
 public class UserInfoActivity extends AppCompatActivityModified {
 
@@ -109,6 +87,7 @@ public class UserInfoActivity extends AppCompatActivityModified {
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("lastUserName", newName);
+                editor.apply();
                 saveButton.setVisibility(View.INVISIBLE);
                 editName.setVisibility(View.INVISIBLE);
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -117,7 +96,6 @@ public class UserInfoActivity extends AppCompatActivityModified {
         });
 
     }
-
 
     @Override
     public void onBackPressed() {
@@ -132,6 +110,25 @@ public class UserInfoActivity extends AppCompatActivityModified {
         editor.putString("lastUserName", newName);
         editor.apply();
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String lastUserNameSave = userDisplayName.getText().toString();
+        outState.putString("userName", lastUserNameSave);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("lastUserName", lastUserNameSave);
+        editor.apply();
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String userName = savedInstanceState.getString("userName");
+        userDisplayName.setText(userName);
     }
 
 }
