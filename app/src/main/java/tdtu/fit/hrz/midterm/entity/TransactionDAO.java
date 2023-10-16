@@ -159,6 +159,24 @@ public class TransactionDAO implements InterfaceTransactionDao{
         }
         return transactions;
     }
+    public ArrayList<Transaction> filterByDate(Date date){
+        ArrayList<Transaction> transactions = new ArrayList<>();
+        calendar.setTime(date);
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        for (Transaction t: transactionList){
+            filteredDate = t.getSpentDate();
+            calendar.setTime(filteredDate);
+            if(calendar.get(Calendar.DAY_OF_MONTH) == day &&
+                    calendar.get(Calendar.MONTH) == (month) &&
+                    calendar.get(Calendar.YEAR) == year){
+                transactions.add(t);
+            }
+        }
+        return transactions;
+    }
     //==AUXILIARY SUPPORT========================================================
     public int getBalance(){
         assert dailyReports != null;

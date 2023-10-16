@@ -31,5 +31,7 @@
     <string name="view_income">Xem thu nhập</string>
     <string name="categorical_statistics">Thống kê chi tiêu</string>
     <string name="percentage">"Chiếm "</string>
+    <string name="cant_delete_msg">Bạn không thể xóa giao dịch mới</string>
+    <string name="not_changed_anything">Bạn chưa thay đổi thông tin nào</string>
 
 </resources>

@@ -42,7 +42,7 @@ public class TransactionRCVAdapter extends RecyclerView.Adapter<TransactionViewH
         return mTransactionList.size();
     }
 
-    public void updateData(ArrayList<Transaction> data){
+    public void updateAllData(ArrayList<Transaction> data){
         mTransactionList = data;
         notifyDataSetChanged();
     }

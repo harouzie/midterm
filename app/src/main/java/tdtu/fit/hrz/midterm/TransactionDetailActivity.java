@@ -1,7 +1,5 @@
 package tdtu.fit.hrz.midterm;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -15,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -39,6 +38,7 @@ public class TransactionDetailActivity extends AppCompatActivityModified {
     TextView transaction_cate, transaction_amount, transaction_date,
             transaction_currency, edtTime, edtDate;
     EditText edtAmount, edtNote;
+    Button btn_save, btn_delete;
     Spinner spinner;
     static TransactionDAO transactionDAO;
     private static final SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
@@ -63,23 +63,33 @@ public class TransactionDetailActivity extends AppCompatActivityModified {
         edtTime = findViewById(R.id.edt_time);
         edtNote = findViewById(R.id.edt_note);
 
+        btn_save = findViewById(R.id.btn_save);
+        btn_delete = findViewById(R.id.btn_delete);
         //=============================================================
         transactionDAO = TransactionDAO.getInstance();
-        selectionChanged = false;
 
         //=============================================================
         spinner.setAdapter(
                 new ArrayAdapter<>(this,
                         android.R.layout.simple_spinner_dropdown_item, loadCategory()));
-
+        // default cant save either delete
+                onToggleChanges(false);
         // process update/display + add new transaction
         processIntent(getIntent());
         // TODO: noting get bug
         // editing handler
         setListener();
+
     }
 
-    private void onToggleChanges(){}
+    private void onToggleChanges(boolean state){
+        if (state){
+            selectionChanged = true;
+            btn_save.setClickable(true);
+        } else {
+            selectionChanged = false;
+        }
+    }
     /**
      * Called when the activity has detected the user's press of the back
      * key. The {@link #getOnBackPressedDispatcher() OnBackPressedDispatcher} will be given a
@@ -119,9 +129,9 @@ public class TransactionDetailActivity extends AppCompatActivityModified {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 TransactionCategory category = (TransactionCategory) adapterView.getSelectedItem();
                 if (category.toString() != mTransaction.getCategory().toString()){
-                    TransactionDetailActivity.selectionChanged = true;
                     mTransaction.setCategory(category);
                     transaction_cate.setText(category.toString());
+                    onToggleChanges(true);
                 }
             }
             @Override
@@ -147,10 +157,10 @@ public class TransactionDetailActivity extends AppCompatActivityModified {
                 if (s.isEmpty() || s.length() > 9){
                     edtAmount.setText("0");
                 } else {
-                    selectionChanged = true;
                     int am = Integer.parseInt(s);
                     mTransaction.setSpentAmount(am);
                     transaction_amount.setText(mTransaction.getSpentAmountString());
+                    onToggleChanges(true);
                 }
             }
         });
@@ -171,7 +181,7 @@ public class TransactionDetailActivity extends AppCompatActivityModified {
                 if (s.isEmpty()){
                     edtNote.setText(" ");
                 } else {
-                    selectionChanged = true;
+                    onToggleChanges(true);
                     mTransaction.setNote(new StringBuilder(s));
                 }
             }
@@ -198,7 +208,7 @@ public class TransactionDetailActivity extends AppCompatActivityModified {
                         edtDate.setText(sdfDate.format(date));
                         transaction_date.setText(sdfDate.format(date));
                         mTransaction.setSpentDate(date);
-                        selectionChanged = true;
+                        onToggleChanges(true);
                     }
                 }, year, month, day).show();
             }
@@ -220,7 +230,7 @@ public class TransactionDetailActivity extends AppCompatActivityModified {
 
                         edtTime.setText(sdfTime.format(date));
                         mTransaction.setSpentDate(date);
-                        selectionChanged = true;
+                        onToggleChanges(true);
                     }
                 }, hour, minute, true).show();
             }
@@ -293,42 +303,48 @@ public class TransactionDetailActivity extends AppCompatActivityModified {
     }
 
     public void deleteTransaction(View view) {
-        if (selectionChanged) {
+        if (action.equals("display")) {
             new AlertDialog.Builder(this)
-                    .setMessage("Do you want to delete this transaction?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            transactionDAO.removeSingleTransaction(mTransaction.getTransactionId());
-                            finish();
-                        }
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
+                .setMessage("Do you want to delete this transaction?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        transactionDAO.removeSingleTransaction(mTransaction.getTransactionId());
+                        onToggleChanges(false);
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
 
-                        }
-                    }).show();
-            selectionChanged = false;
+                    }
+                }).show();
+        } else {
+            Toast.makeText(this,
+                R.string.cant_delete_msg, Toast.LENGTH_SHORT).show();
+            transactionDAO.removeSingleTransaction(mTransaction.getTransactionId());
         }
     }
 
     public void saveTransaction(View view) {
-        selectionChanged = false;
         switch (action){
             case "add":{
-                transactionDAO.addSingleTransaction(mTransaction);
+                if (selectionChanged){
+                    transactionDAO.addSingleTransaction(mTransaction);
+                    finish();
+                } else {
+                    Toast.makeText(this,
+                        R.string.not_changed_anything, Toast.LENGTH_SHORT).show();
+                }
                 break;
             }
             case "display":{
                 int id = mTransaction.getTransactionId();
                 transactionDAO.updateTransaction(id, mTransaction);
-                Log.d("idt", mTransaction.getSpentAmountString());
-                Toast.makeText(
-                this, transactionDAO.getSingleTransaction(id).toString(), Toast.LENGTH_SHORT)
-                        .show();
                 updateView(mTransaction);
+                finish();
                 break;
             }
         }
-        finish();
+        onToggleChanges(false);
     }
 }

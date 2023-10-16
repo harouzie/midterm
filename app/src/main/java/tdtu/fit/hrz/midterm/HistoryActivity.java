@@ -15,6 +15,8 @@ public class HistoryActivity extends AppCompatActivityModified{
 
     private RecyclerView rcv;
     TextView tvBalance;
+    TransactionDAO dao;
+    DailyReportAdapter reportAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,8 +25,8 @@ public class HistoryActivity extends AppCompatActivityModified{
         rcv = findViewById(R.id.rcv_days);
         tvBalance = findViewById(R.id.balance);
 
-        TransactionDAO dao = TransactionDAO.getInstance();
-        DailyReportAdapter reportAdapter = new DailyReportAdapter(
+        dao = TransactionDAO.getInstance();
+        reportAdapter = new DailyReportAdapter(
         this, dao.getDailyReportList(), R.layout.daily_report_item);
         rcv.setAdapter(reportAdapter);
         rcv.setLayoutManager(new LinearLayoutManager(this));
@@ -33,5 +35,17 @@ public class HistoryActivity extends AppCompatActivityModified{
             tvBalance.setTextColor(getResources().getColor(R.color.green));
         } else tvBalance.setTextColor(getResources().getColor(R.color.dark_red));
         tvBalance.setText(MyStringFormatter.numberFormat.format(balance));
+    }
+
+    /**
+     *
+     */
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        reportAdapter = new DailyReportAdapter(
+                this, dao.getDailyReportList(), R.layout.daily_report_item);
+        rcv.setAdapter(reportAdapter);
+        rcv.setLayoutManager(new LinearLayoutManager(this));
     }
 }

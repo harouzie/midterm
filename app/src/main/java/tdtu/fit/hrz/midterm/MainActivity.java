@@ -1,6 +1,5 @@
 package tdtu.fit.hrz.midterm;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,18 +8,15 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -32,7 +28,6 @@ import java.util.Locale;
 import tdtu.fit.hrz.midterm.entity.DailyReport;
 import tdtu.fit.hrz.midterm.entity.MyStringFormatter;
 import tdtu.fit.hrz.midterm.entity.Transaction;
-import tdtu.fit.hrz.midterm.entity.TransactionCategory;
 import tdtu.fit.hrz.midterm.entity.TransactionDAO;
 import tdtu.fit.hrz.midterm.entity.TransactionRCVAdapter;
 import tdtu.fit.hrz.midterm.entity.TransactionRequest;
@@ -53,6 +48,16 @@ public class MainActivity extends AppCompatActivityModified {
 
     TransactionDAO transactionDAO = TransactionDAO.getInstance();
     Handler handler = new Handler();
+
+    /**
+     * resume from other activities
+     * reload RCV view
+     */
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+
+    }
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -91,6 +96,7 @@ public class MainActivity extends AppCompatActivityModified {
         editor.putBoolean("shouldRestartMainActivity", false);
         editor.apply();
         String currentDate = def.format(new Date());
+
         boolean shouldReloadDate = userPreferences.getBoolean("shouldReloadSelectedDate", false);
 
         if (!shouldReloadDate) {
@@ -102,22 +108,23 @@ public class MainActivity extends AppCompatActivityModified {
             editor.apply();
         }
 
+
+        // update amount
+        updateDataByDate(today);
         //====TESTING, playground is here bois=========================================
         // month from calender is index 0
-        ArrayList<Transaction> transactions = transactionDAO.filterByDate(day, month, year);
+        ArrayList<Transaction> transactions = transactionDAO.filterByDate(today);
         mTransactionAdapter = new TransactionRCVAdapter(
                         this, transactions, R.layout.transaction_cardview_item_rcv);
         mRecyclerView.setAdapter(mTransactionAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // update amount
-        updateExpenseStringByDate(today);
     }
 
     /**
      * update this month and today expense amount
      */
-    private void updateExpenseStringByDate(Date date){
+    private void updateDataByDate(Date date){
         calendar.setTime(date);
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -131,6 +138,11 @@ public class MainActivity extends AppCompatActivityModified {
         if (mam > 0) month_amount.setTextColor(getResources().getColor(R.color.green));
         date_amount.setText(String.format("%s VND", MyStringFormatter.numberFormat.format(dam)));
         month_amount.setText(String.format("%s VND", MyStringFormatter.numberFormat.format(mam)));
+
+        mTransactionAdapter = new TransactionRCVAdapter(
+                this, dateTransactions, R.layout.transaction_cardview_item_rcv);
+        mRecyclerView.setAdapter(mTransactionAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
     private void setListeners(){
         //====CLICK LISTENER SETTING========================================
@@ -190,11 +202,11 @@ public class MainActivity extends AppCompatActivityModified {
             // Xử lý khi người dùng đã chọn ngày
             String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
             selectedDate.setText(date);
-            mTransactionAdapter.updateData(
+            mTransactionAdapter.updateAllData(
                 transactionDAO.filterByDate(dayOfMonth, monthOfYear, year));
 
             calendar.set(year, monthOfYear, dayOfMonth);
-            updateExpenseStringByDate(calendar.getTime());
+            updateDataByDate(calendar.getTime());
         }
     };
 
