@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -72,10 +73,49 @@ public class StatisticalActivity extends AppCompatActivityModified implements Ca
         mRecyclerView.setAdapter(mTransactionAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        //======================Bind category to color
         //category list
         List<TransactionCategory> categories = new ArrayList<>(Arrays.asList(TransactionCategory.values()));
 
-        CategoryAdapter categoryAdapter = new CategoryAdapter(categories);
+        // Create a HashMap to map each category to a color
+        LinkedHashMap<TransactionCategory, Integer> categoryColors = new LinkedHashMap<>();
+
+        // add color to hashmap
+        int[] colorIds = new int[] { R.color.pie1,
+                R.color.pie2,
+                R.color.pie3,
+                R.color.pie4,
+                R.color.pie5,
+                R.color.pie6,
+                R.color.pie7,
+                R.color.pie8,
+                R.color.pie9,
+                R.color.pie10,
+                R.color.pie11,
+                R.color.pie12,
+                R.color.pie13,
+                R.color.pie14,
+                R.color.pie15,
+                R.color.pie16,
+                R.color.pie17,
+                R.color.pie18};
+
+        ArrayList<Integer> colors = new ArrayList<Integer>();
+        for (int i = 0; i < colorIds.length; i++) {
+            colors.add(ContextCompat.getColor(this, colorIds[i]));
+        }
+
+        int counter = 0;
+        for (TransactionCategory category : categories) {
+            int color = colors.get(counter);
+            if (counter < colors.size()-1) {
+                counter++;
+            }
+            categoryColors.put(category, color);
+        }
+
+        //load category list
+        CategoryAdapter categoryAdapter = new CategoryAdapter(categoryColors);
         RecyclerView listOfCategory = findViewById(R.id.listOfCategory);
         listOfCategory.setLayoutManager(new LinearLayoutManager(this));
 
@@ -120,50 +160,12 @@ public class StatisticalActivity extends AppCompatActivityModified implements Ca
 
         pieChart = findViewById(R.id.pieChart);
 
-        // Create a HashMap to map each category to a color
-        HashMap<TransactionCategory, Integer> categoryColors = new HashMap<>();
-
-        // add color to hashmap
-        int[] colorIds = new int[] { R.color.pie1,
-                                    R.color.pie2,
-                                    R.color.pie3,
-                                    R.color.pie4,
-                                    R.color.pie5,
-                                    R.color.pie6,
-                                    R.color.pie7,
-                                    R.color.pie8,
-                                    R.color.pie9,
-                                    R.color.pie10,
-                                    R.color.pie11,
-                                    R.color.pie12,
-                                    R.color.pie13,
-                                    R.color.pie14,
-                                    R.color.pie15,
-                                    R.color.pie16,
-                                    R.color.pie17,
-                                    R.color.pie18};
-
-        ArrayList<Integer> colors = new ArrayList<Integer>();
-        for (int i = 0; i < colorIds.length; i++) {
-            colors.add(ContextCompat.getColor(this, colorIds[i]));
-        }
-
-        int counter = 0;
-        for (TransactionCategory category : categories) {
-            int color = colors.get(counter);
-            if (counter < colors.size()-1) {
-                counter++;
-            }
-            categoryColors.put(category, color);
-        }
-
-
         // Create a list of entries
         ArrayList<PieEntry> entries = new ArrayList<>();
         for (TransactionCategory category : categoryColors.keySet()) {
 //            float percentage = (float)transactionDAO.filterByCategory(category).size() / transactionDAO.getTransactionList().size() * 100;
             if (!transactionDAO.isIncome(category)) {
-                float percentage = (float)transactionDAO.calculateTotalSpent(transactionDAO.filterByCategory(category)) / transactionDAO.calculateTotalSpent(allTransactions) * 100;
+                float percentage = (float)transactionDAO.calculateTotalSpent(transactionDAO.filterByCategory(category)) / transactionDAO.calculateTotalSpent(expenseList) * 100;
                 entries.add(new PieEntry(percentage));
             }
         }

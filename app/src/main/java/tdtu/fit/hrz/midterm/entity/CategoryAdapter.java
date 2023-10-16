@@ -5,6 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,12 +16,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import tdtu.fit.hrz.midterm.R;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
-    private List<TransactionCategory> categories;
+    private LinkedHashMap<TransactionCategory, Integer> categories;
+
+    private ArrayList<TransactionCategory> keyList;
+    private ArrayList<Integer> valueList;
 
     private int selectedPosition = RecyclerView.NO_POSITION;
 
-    public CategoryAdapter(List<TransactionCategory> categories) {
+    public CategoryAdapter(LinkedHashMap<TransactionCategory, Integer> categories) {
         this.categories = categories;
+        this.keyList = new ArrayList<>(categories.keySet());
+        this.valueList = new ArrayList<>(categories.values());
     }
 
     public interface OnItemClickListener {
@@ -32,10 +41,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvCategoryName;
+        View color;
 
         public CategoryViewHolder(View itemView) {
             super(itemView);
             tvCategoryName = itemView.findViewById(R.id.tvCategoryName);
+            color = itemView.findViewById(R.id.color);
             itemView.setOnClickListener(this);
         }
 
@@ -57,8 +68,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @Override
     public void onBindViewHolder(CategoryViewHolder holder, int position) {
-        TransactionCategory category = categories.get(position);
+
+        TransactionCategory category = keyList.get(position);
+        int color = valueList.get(position);
+
         holder.tvCategoryName.setText(category.name());
+        holder.color.setBackgroundColor(color);
         if (position == selectedPosition) {
             holder.itemView.setBackgroundColor(Color.GRAY);
         } else {

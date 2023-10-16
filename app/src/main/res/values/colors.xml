@@ -15,23 +15,23 @@
     <color name="light_yellow_pastel">#FFFFA5</color>
     <color name="light_gray">#EAEAEA</color>
 
-    <color name="pie1">#fc8b8b</color>
-    <color name="pie2">#fca28b</color>
-    <color name="pie3">#fcc48b</color>
-    <color name="pie4">#fced8b</color>
-    <color name="pie5">#defc8b</color>
-    <color name="pie6">#bafc8b</color>
-    <color name="pie7">#8bfcb5</color>
-    <color name="pie8">#8bfcf9</color>
-    <color name="pie9">#8badfc</color>
-    <color name="pie10">#a98bfc</color>
-    <color name="pie11">#91edd0</color>
-    <color name="pie12">#91deed</color>
-    <color name="pie13">#91afed</color>
-    <color name="pie14">#9791ed</color>
-    <color name="pie15">#bf91ed</color>
-    <color name="pie16">#dc91ed</color>
-    <color name="pie17">#ed91d9</color>
-    <color name="pie18">#ed919f</color>
+    <color name="pie1">#ff8080</color>
+    <color name="pie2">#ffaa80</color>
+    <color name="pie3">#ffd580</color>
+    <color name="pie4">#ffff80</color>
+    <color name="pie5">#d5ff80</color>
+    <color name="pie6">#aaff80</color>
+    <color name="pie7">#80ff80</color>
+    <color name="pie8">#80ffaa</color>
+    <color name="pie9">#80ffd5</color>
+    <color name="pie10">#80ffff</color>
+    <color name="pie11">#80d5ff</color>
+    <color name="pie12">#80aaff</color>
+    <color name="pie13">#8080ff</color>
+    <color name="pie14">#aa80ff</color>
+    <color name="pie15">#d580ff</color>
+    <color name="pie16">#ff80ff</color>
+    <color name="pie17">#ff80d5</color>
+    <color name="pie18">#ff80aa</color>
 
 </resources>
