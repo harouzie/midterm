@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivityModified {
     private ImageButton allTimeButton, statButton, userButton;
     private TextView selectedDate, currentTime, date_amount, month_amount;
     private DatePickerDialog datePickerDialog;
-    private static final Calendar calendar = Calendar.getInstance();;
+    private static final Calendar calendar = Calendar.getInstance();
     private  Date today;
     private RecyclerView mRecyclerView;
     private TransactionRCVAdapter mTransactionAdapter;
@@ -82,9 +82,11 @@ public class MainActivity extends AppCompatActivityModified {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         today = calendar.getTime();
+//        calendar.add(Calendar.DAY_OF_MONTH, 1); // Thêm 1 ngày
+        long maxDate = System.currentTimeMillis();
         datePickerDialog = new DatePickerDialog(this, dateSetListener, year, month, day);
-        SharedPreferences userPreferences = getSharedPreferences("MyCustomPrefs", MODE_PRIVATE);
-        String lastUserName = userPreferences.getString("lastUserName", "Default Username");
+        datePickerDialog.getDatePicker().setMaxDate(maxDate);
+        SharedPreferences userPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = userPreferences.edit();
         editor.putBoolean("shouldRestartMainActivity", false);
         editor.apply();
@@ -215,7 +217,7 @@ public class MainActivity extends AppCompatActivityModified {
     protected void onResume() {
         super.onResume();
 
-        SharedPreferences userPreferences = getSharedPreferences("MyCustomPrefs", MODE_PRIVATE);
+        SharedPreferences userPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         boolean shouldRestart = userPreferences.getBoolean("shouldRestartMainActivity", false);
 
         if (shouldRestart) {

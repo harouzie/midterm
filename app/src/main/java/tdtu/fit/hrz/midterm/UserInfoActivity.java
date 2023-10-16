@@ -30,7 +30,7 @@ public class UserInfoActivity extends AppCompatActivityModified {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
         ctx = this;
-        SharedPreferences userPreferences = getSharedPreferences("MyCustomPrefs", MODE_PRIVATE);
+        SharedPreferences userPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         lastUserName = userPreferences.getString("lastUserName", "Default Username");
         languageChange = findViewById(R.id.languageButton);
         userInfoTitle = findViewById(R.id.userInfoTitleTextView);
@@ -101,7 +101,7 @@ public class UserInfoActivity extends AppCompatActivityModified {
 //        Intent intent = new Intent(this, MainActivity.class);
 //        startActivityForResult(intent);
         String selectedDate = getIntent().getStringExtra("selectedDate");
-        SharedPreferences userPreferences = getSharedPreferences("MyCustomPrefs", MODE_PRIVATE);
+        SharedPreferences userPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = userPreferences.edit();
         editor.putBoolean("shouldRestartMainActivity", true);
         editor.putString("lastSelectedDate", selectedDate);
@@ -116,7 +116,7 @@ public class UserInfoActivity extends AppCompatActivityModified {
         super.onSaveInstanceState(outState);
         String lastUserNameSave = userDisplayName.getText().toString();
         outState.putString("userName", lastUserNameSave);
-        SharedPreferences userPreferences = getSharedPreferences("MyCustomPrefs", MODE_PRIVATE);
+        SharedPreferences userPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = userPreferences.edit();
         editor.putString("lastUserName", lastUserNameSave);
         editor.apply();
