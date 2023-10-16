@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivityModified {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         if (today == null) today = calendar.getTime();
-//        calendar.add(Calendar.DAY_OF_MONTH, 1); // Thêm 1 ngày
         long maxDate = System.currentTimeMillis();
         datePickerDialog = new DatePickerDialog(this, dateSetListener, year, month, day);
         datePickerDialog.getDatePicker().setMaxDate(maxDate);
