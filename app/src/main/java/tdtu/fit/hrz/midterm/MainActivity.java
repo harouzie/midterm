@@ -195,6 +195,7 @@ public class MainActivity extends AppCompatActivityModified {
                 transactionDAO.filterByDate(dayOfMonth, monthOfYear, year));
 
             calendar.set(year, monthOfYear, dayOfMonth);
+            today = calendar.getTime();
             updateDataByDate(calendar.getTime());
         }
     };
