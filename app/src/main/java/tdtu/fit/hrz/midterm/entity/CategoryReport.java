@@ -12,13 +12,12 @@ public class CategoryReport {
     private int totalSpent;
     private int rank;
     private double percentage;
-    private Currency currency;
+    private Currency currency = Transaction.currency;
 
     public CategoryReport(TransactionCategory category ,ArrayList<Transaction> transactions) {
         this.category = category;
         this.transactions = transactions;
         totalSpent = getTotalSpent();
-        currency = Transaction.currency;
     }
     public TransactionCategory getCategory() {
         return category;

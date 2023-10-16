@@ -21,7 +21,7 @@ public class TransactionDAO implements InterfaceTransactionDao{
     private static ArrayList<Transaction> transactionList;
     private static ArrayList<DailyReport> dailyReports;
     private static ArrayList<CategoryReport> categoricalReports;
-    private int dataSize = 500;
+    private int dataSize = 1000;
     private static int balance;
     private static Random random;
     public static int numCategory;
@@ -45,6 +45,9 @@ public class TransactionDAO implements InterfaceTransactionDao{
 
     //=======================================================================
     // DUMMY DATA INITIALIZE PROCEDURES
+    public int getCount(){
+        return transactionList.size();
+    }
     private ArrayList<Transaction> addSyntheticTransaction(int num){
         ArrayList<Transaction> trs = new ArrayList<>();
         int amount;
@@ -91,11 +94,17 @@ public class TransactionDAO implements InterfaceTransactionDao{
         for (CategoryReport report: categoricalReports) {
             total += report.getTotalSpent();
         }
+
         int rank = 1;
         for (CategoryReport report: categoricalReports) {
-            report.setPercentage(report.getTotalSpent()*100/(1.0*total));
-            report.setRank(rank);
-            rank+=1;
+            if (total != 0){
+                report.setPercentage(report.getTotalSpent()*100/(1.0*total));
+                report.setRank(rank);
+                rank+=1;
+            } else {
+                report.setPercentage(0.0);
+                report.setRank(0);
+            }
         }
         return categoricalReports;
     }
@@ -121,7 +130,9 @@ public class TransactionDAO implements InterfaceTransactionDao{
             assert currentReport != null;
             currentReport.addTransaction(t);
         }
-
+        if (dailyReports.size()==0){
+            dailyReports.add(new DailyReport(calendar.getTime()));
+        }
         return dailyReports;
     }
 
@@ -179,12 +190,14 @@ public class TransactionDAO implements InterfaceTransactionDao{
     }
     //==AUXILIARY SUPPORT========================================================
     public int getBalance(){
-        assert dailyReports != null;
-        balance = 0;
-        for (DailyReport report: dailyReports){
-            balance += report.getTotalSpent();
-        }
-        return balance;
+        if (dailyReports != null)
+        {
+            balance = 0;
+            for (DailyReport report : dailyReports) {
+                balance += report.getTotalSpent();
+            }
+            return balance;
+        } else return 0;
     }
     public int calculateTotalSpent(ArrayList<Transaction> transactions){
         int sum = 0;

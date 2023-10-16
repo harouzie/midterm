@@ -7,7 +7,7 @@ import java.util.Date;
 public class Transaction {
     private static int staticTransactionId = 0;
     private int transactionId ;
-    public static Currency currency;
+    public static Currency currency = Currency.getInstance("VND");
     private int spentAmount = 0;
 
     private Date spentDate;
@@ -17,7 +17,7 @@ public class Transaction {
 //   todo: add note, and image like receive or bill
     public Transaction() {
         this.transactionId = staticTransactionId + 1;
-        currency = Currency.getInstance("VND");
+
 //        spentDate = new Date();
         spentDate = new Date();
         category = TransactionCategory.GENERAL;

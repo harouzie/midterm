@@ -26,10 +26,13 @@ public class HistoryActivity extends AppCompatActivityModified{
         tvBalance = findViewById(R.id.balance);
 
         dao = TransactionDAO.getInstance();
-        reportAdapter = new DailyReportAdapter(
-        this, dao.getDailyReportList(), R.layout.daily_report_item);
-        rcv.setAdapter(reportAdapter);
-        rcv.setLayoutManager(new LinearLayoutManager(this));
+        if (dao.getCount() !=0){
+            reportAdapter = new DailyReportAdapter(
+                    this, dao.getDailyReportList(), R.layout.daily_report_item);
+            rcv.setAdapter(reportAdapter);
+            rcv.setLayoutManager(new LinearLayoutManager(this));
+        }
+
         int balance = dao.getBalance();
         if (balance > 0){
             tvBalance.setTextColor(getResources().getColor(R.color.green));
@@ -40,12 +43,12 @@ public class HistoryActivity extends AppCompatActivityModified{
     /**
      *
      */
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        reportAdapter = new DailyReportAdapter(
-                this, dao.getDailyReportList(), R.layout.daily_report_item);
-        rcv.setAdapter(reportAdapter);
-        rcv.setLayoutManager(new LinearLayoutManager(this));
-    }
+//    @Override
+//    protected void onPostResume() {
+//        super.onPostResume();
+//        reportAdapter = new DailyReportAdapter(
+//                this, dao.getDailyReportList(), R.layout.daily_report_item);
+//        rcv.setAdapter(reportAdapter);
+//        rcv.setLayoutManager(new LinearLayoutManager(this));
+//    }
 }

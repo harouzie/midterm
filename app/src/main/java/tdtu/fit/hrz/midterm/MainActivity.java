@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivityModified {
     @Override
     protected void onPostResume() {
         super.onPostResume();
-
+        updateDataByDate(today);
     }
 
     @SuppressLint("MissingInflatedId")
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivityModified {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        today = calendar.getTime();
+        if (today == null) today = calendar.getTime();
 //        calendar.add(Calendar.DAY_OF_MONTH, 1); // Thêm 1 ngày
         long maxDate = System.currentTimeMillis();
         datePickerDialog = new DatePickerDialog(this, dateSetListener, year, month, day);
@@ -108,17 +108,7 @@ public class MainActivity extends AppCompatActivityModified {
             editor.apply();
         }
 
-
-        // update amount
         updateDataByDate(today);
-        //====TESTING, playground is here bois=========================================
-        // month from calender is index 0
-        ArrayList<Transaction> transactions = transactionDAO.filterByDate(today);
-        mTransactionAdapter = new TransactionRCVAdapter(
-                        this, transactions, R.layout.transaction_cardview_item_rcv);
-        mRecyclerView.setAdapter(mTransactionAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
     /**

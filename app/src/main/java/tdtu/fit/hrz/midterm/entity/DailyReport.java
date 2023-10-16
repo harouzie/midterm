@@ -13,14 +13,13 @@ public class DailyReport {
     private ArrayList<Transaction> transactions;
     private Date date;
     private int totalSpent;
-    private Currency currency;
+    private Currency currency = Transaction.currency;
     private int numExpenses;
     private static final Calendar c1 = Calendar.getInstance();
     private static final Calendar c2 = Calendar.getInstance();
 
     public DailyReport(){
         this.transactions = new ArrayList<>();
-        this.currency = Transaction.currency;
         this.totalSpent = -1;
         this.numExpenses = 0;
     }
