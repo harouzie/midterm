@@ -83,17 +83,18 @@ public class MainActivity extends AppCompatActivityModified {
 
         today = calendar.getTime();
         datePickerDialog = new DatePickerDialog(this, dateSetListener, year, month, day);
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
+        SharedPreferences userPreferences = getSharedPreferences("MyCustomPrefs", MODE_PRIVATE);
+        String lastUserName = userPreferences.getString("lastUserName", "Default Username");
+        SharedPreferences.Editor editor = userPreferences.edit();
         editor.putBoolean("shouldRestartMainActivity", false);
         editor.apply();
         String currentDate = def.format(new Date());
-        boolean shouldReloadDate = preferences.getBoolean("shouldReloadSelectedDate", false);
+        boolean shouldReloadDate = userPreferences.getBoolean("shouldReloadSelectedDate", false);
 
         if (!shouldReloadDate) {
             selectedDate.setText(currentDate);
         } else {
-            String lastDate = preferences.getString("lastSelectedDate", "01/01/1900");
+            String lastDate = userPreferences.getString("lastSelectedDate", "01/01/1900");
             selectedDate.setText(lastDate);
             editor.putBoolean("shouldReloadSelectedDate", false);
             editor.apply();
@@ -121,7 +122,6 @@ public class MainActivity extends AppCompatActivityModified {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         ArrayList<Transaction> dateTransactions = transactionDAO.filterByDate(day, month, year);
         ArrayList<Transaction> monthTransactions = transactionDAO.filterByMonth(month);
-
         DailyReport report = new DailyReport(date, dateTransactions);
         int dam = report.getTotalSpent();
         int mam = transactionDAO.calculateTotalSpent(monthTransactions);
@@ -215,8 +215,8 @@ public class MainActivity extends AppCompatActivityModified {
     protected void onResume() {
         super.onResume();
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean shouldRestart = preferences.getBoolean("shouldRestartMainActivity", false);
+        SharedPreferences userPreferences = getSharedPreferences("MyCustomPrefs", MODE_PRIVATE);
+        boolean shouldRestart = userPreferences.getBoolean("shouldRestartMainActivity", false);
 
         if (shouldRestart) {
             // Khởi động lại MainActivity
@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivityModified {
         }
 
         // Xóa tín hiệu yêu cầu khởi động lại
-        preferences.edit().remove("shouldRestartMainActivity").apply();
+        userPreferences.edit().remove("shouldRestartMainActivity").apply();
     }
 
 
