@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">midterm</string>
+    <string name="app_name">Nhật ký chi tiêu</string>
     <string name="infoTitle">Thông tin chi tiêu</string>
     <string name="dateInfoTitle">Chi tiêu theo ngày:</string>
     <string name="monthInfo">Chi tiêu tháng này:</string>

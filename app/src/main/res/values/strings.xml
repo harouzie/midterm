@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">midterm</string>
+    <string name="app_name">Money Diary</string>
     <string name="infoTitle">Expenses Information</string>
     <string name="monthInfo">This month expenses:</string>
     <string name="dateInfoTitle">Expenses by date:</string>

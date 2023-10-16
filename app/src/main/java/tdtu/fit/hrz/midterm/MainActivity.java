@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivityModified {
     private ImageButton allTimeButton, statButton, userButton;
     private TextView selectedDate, currentTime, date_amount, month_amount;
     private DatePickerDialog datePickerDialog;
-    private Calendar calendar;
-    private Date today;
+    private static final Calendar calendar = Calendar.getInstance();;
+    private  Date today;
     private RecyclerView mRecyclerView;
     private TransactionRCVAdapter mTransactionAdapter;
     private FloatingActionButton fab;
@@ -76,10 +76,11 @@ public class MainActivity extends AppCompatActivityModified {
         setListeners();
         //====INITIALIZE ===================================================
         updateClock(); //Call update clock method
-        calendar = Calendar.getInstance();
+
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
+
         today = calendar.getTime();
         datePickerDialog = new DatePickerDialog(this, dateSetListener, year, month, day);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -128,7 +129,6 @@ public class MainActivity extends AppCompatActivityModified {
         if (mam > 0) month_amount.setTextColor(getResources().getColor(R.color.green));
         date_amount.setText(String.format("%s VND", MyStringFormatter.numberFormat.format(dam)));
         month_amount.setText(String.format("%s VND", MyStringFormatter.numberFormat.format(mam)));
-
     }
     private void setListeners(){
         //====CLICK LISTENER SETTING========================================
@@ -154,8 +154,7 @@ public class MainActivity extends AppCompatActivityModified {
         allTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "All Time History",
-                        Toast.LENGTH_SHORT).show();
+
                 Intent watchHistory = new Intent(getApplicationContext(), HistoryActivity.class);
                 startActivity(watchHistory);
             }
@@ -165,8 +164,7 @@ public class MainActivity extends AppCompatActivityModified {
         statButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Statistics",
-                        Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent(getApplicationContext(), CategoricalStatisticActivity.class);
                 startActivity(intent);
             }

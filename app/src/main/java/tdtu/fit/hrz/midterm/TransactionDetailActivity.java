@@ -79,6 +79,7 @@ public class TransactionDetailActivity extends AppCompatActivityModified {
         setListener();
     }
 
+    private void onToggleChanges(){}
     /**
      * Called when the activity has detected the user's press of the back
      * key. The {@link #getOnBackPressedDispatcher() OnBackPressedDispatcher} will be given a
@@ -121,7 +122,6 @@ public class TransactionDetailActivity extends AppCompatActivityModified {
                     TransactionDetailActivity.selectionChanged = true;
                     mTransaction.setCategory(category);
                     transaction_cate.setText(category.toString());
-
                 }
             }
             @Override
@@ -293,20 +293,22 @@ public class TransactionDetailActivity extends AppCompatActivityModified {
     }
 
     public void deleteTransaction(View view) {
-        selectionChanged = false;
-        new AlertDialog.Builder(this)
-                .setMessage("Do you want to delete this transaction?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        transactionDAO.removeSingleTransaction(mTransaction.getTransactionId());
-                        finish();
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
+        if (selectionChanged) {
+            new AlertDialog.Builder(this)
+                    .setMessage("Do you want to delete this transaction?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            transactionDAO.removeSingleTransaction(mTransaction.getTransactionId());
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                }).show();
+                        }
+                    }).show();
+            selectionChanged = false;
+        }
     }
 
     public void saveTransaction(View view) {
