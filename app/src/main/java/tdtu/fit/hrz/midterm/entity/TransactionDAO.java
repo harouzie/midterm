@@ -195,7 +195,7 @@ public class TransactionDAO implements InterfaceTransactionDao{
             }
         }
     }
-    private boolean isIncome(TransactionCategory category){
+    public boolean isIncome(TransactionCategory category){
         return (
                 category.toString().equals(TransactionCategory.INCOME_GIFT.toString()) ||
                         category.toString().equals(TransactionCategory.INCOME_SALARY.toString())
@@ -241,4 +241,9 @@ public class TransactionDAO implements InterfaceTransactionDao{
         return true;
     }
 
+    public ArrayList<Transaction> getTransactionListCopy() {
+        ArrayList<Transaction> transactions = new ArrayList<>();
+        transactions.addAll(transactionList);
+        return transactions;
+    }
 }

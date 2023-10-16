@@ -25,5 +25,13 @@
     <color name="pie8">#8bfcf9</color>
     <color name="pie9">#8badfc</color>
     <color name="pie10">#a98bfc</color>
+    <color name="pie11">#91edd0</color>
+    <color name="pie12">#91deed</color>
+    <color name="pie13">#91afed</color>
+    <color name="pie14">#9791ed</color>
+    <color name="pie15">#bf91ed</color>
+    <color name="pie16">#dc91ed</color>
+    <color name="pie17">#ed91d9</color>
+    <color name="pie18">#ed919f</color>
 
 </resources>
