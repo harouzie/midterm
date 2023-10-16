@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:background="@color/light_gray"
+    android:foreground="?attr/selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/transaction_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_cate_general"
+        android:layout_marginRight="8dp"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/transaction_category"
+        android:hint="CATEGORY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/transaction_icon"
+        android:textSize="16sp"
+        android:textColor="@color/blue"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/transaction_amount"
+        android:hint="$"
+
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/transaction_category"
+        android:layout_toRightOf="@id/transaction_icon" />
+
+    <TextView
+        android:id="@+id/transaction_currency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:layout_below="@id/transaction_category"
+        android:layout_toRightOf="@id/transaction_amount"
+        android:gravity="left|center_vertical"
+        android:layout_marginLeft="2dp"
+        android:hint="cur" />
+
+    <TextView
+        android:id="@+id/transaction_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/transaction_category"
+        android:layout_alignBaseline="@id/transaction_currency"
+        android:layout_alignParentRight="true"
+        android:hint="Note"
+        android:textSize="14dp"/>
+</RelativeLayout>

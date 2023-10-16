@@ -1,3 +1,37 @@
 <resources>
-    <string name="app_name">midterm</string>
+    <string name="app_name">Money Diary</string>
+    <string name="infoTitle">Expenses Information</string>
+    <string name="monthInfo">This month expenses:</string>
+    <string name="dateInfoTitle">Expenses by date:</string>
+    <string name="selectedDateTitle">Date:</string>
+    <string name="dateSelect">Change</string>
+    <string name="selectedDate" translatable="false">MM/DD/YYYY</string>
+    <string name="expenses">Total expenses:</string>
+    <string name="expListTitle">List of expenses:</string>
+
+    <string name="txt_category">CATEGORY</string>
+    <string name="txt_spent_amount">SPENT AMOUNT</string>
+    <string name="txt_spent_date">SPENT DATE</string>
+    <string name="txt_transaction_time">TRANSACTION TIME</string>
+    <string name="note">NOTE</string>
+    <string name="btn_delete">DELETE</string>
+    <string name="btn_save">SAVE</string>
+
+    <string name="dd_mm_yyyy">dd:mm:yyyy</string>
+    <string name="all_time_title">History</string>
+    <string name="userInfoTitle">User\'s Information</string>
+    <string name="languageSwitch">Switch Language (English/Vietnamese)</string>
+    <string name="languageText">EN</string>
+    <string name="expenses_history">Expenses History</string>
+    <string name="balance">Balance:</string>
+    <string name="changeAvatar">Change Avatar</string>
+    <string name="changeName">Change Name</string>
+    <string name="Save">Save</string>
+    <string name="credInfo">Developed by:\nLe Phuoc Thinh\nDo Pham Quang Hung\nCao Khanh Tan</string>
+    <string name="view_income">View Income</string>
+    <string name="categorical_statistics">Categorical Statistics</string>
+    <string name="percentage">"for "</string>
+    <string name="cant_delete_msg">You can\'t delete new transaction</string>
+    <string name="not_changed_anything">You haven\'t changed any information</string>
+
 </resources>

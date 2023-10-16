@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="txt_category">CATEGORY</string>
+    <string name="txt_spent_amount">SPENT AMOUNT</string>
+    <string name="txt_spent_date">SPENT DATE</string>
+    <string name="txt_transaction_time">TRANSACTION TIME</string>
+    <string name="btn_delete">DELETE</string>
+    <string name="btn_save">SAVE</string>
+    <string name="expenses_history">Expenses History</string>
+    <string name="balance">Balance:</string>
+    <string name="view_income">View Income</string>
+    <string name="percentage">"Percentage "</string>
+    <string name="cant_delete_msg">You can\'t delete new transaction</string>
+    <string name="not_changed_anything">You haven\'t changed any information</string>
+</resources>

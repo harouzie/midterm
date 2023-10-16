@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Nhật ký chi tiêu</string>
+    <string name="infoTitle">Thông tin chi tiêu</string>
+    <string name="dateInfoTitle">Chi tiêu theo ngày:</string>
+    <string name="monthInfo">Chi tiêu tháng này:</string>
+    <string name="selectedDateTitle">Ngày:</string>
+    <string name="dateSelect">Đổi</string>
+    <string name="expenses">Tổng chi tiêu:</string>
+    <string name="expListTitle">Danh sách chi tiêu:</string>
+
+    <string name="txt_category">Loại chi tiêu</string>
+    <string name="txt_spent_amount">Số tiền</string>
+    <string name="txt_spent_date">Ngày chi</string>
+    <string name="txt_transaction_time">Thời gian chi</string>
+    <string name="note">Ghi chú</string>
+    <string name="btn_delete">XÓA GD</string>
+    <string name="btn_save">LƯU GD</string>
+
+    <string name="dd_mm_yyyy">dd:mm:yyyy</string>
+    <string name="all_time_title">Lịch sử</string>
+    <string name="userInfoTitle">Thông tin người dùng</string>
+    <string name="languageSwitch">Chuyển ngôn ngữ (Tiếng Anh/Tiếng Việt)</string>
+    <string name="languageText">VI</string>
+    <string name="expenses_history">Lịch sử chi tiêu</string>
+    <string name="balance">Số dư:</string>
+    <string name="changeAvatar">Đổi Avatar</string>
+    <string name="changeName">Đổi tên</string>
+    <string name="Save">Lưu</string>
+    <string name="credInfo">Phát triển bởi:\nLê Phước Thịnh\nĐỗ Phạm Quang Hưng\nCao Khánh Tân</string>
+    <string name="view_income">Xem thu nhập</string>
+    <string name="categorical_statistics">Thống kê chi tiêu</string>
+    <string name="percentage">"Chiếm "</string>
+    <string name="cant_delete_msg">Bạn không thể xóa giao dịch mới</string>
+    <string name="not_changed_anything">Bạn chưa thay đổi thông tin nào</string>
+
+</resources>

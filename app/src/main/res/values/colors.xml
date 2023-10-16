@@ -2,4 +2,37 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="partial_transparent">#80FFFFFF</color>
+    <color name="transparent">#FFFFFFFF</color>
+    <color name="blue">#16337C</color>
+    <color name="natural_titanium">#878681</color>
+    <color name="green">#00BC03</color>
+    <color name="dark_red">#A30000</color>
+    <color name="red">#FF0000</color>
+    <color name="light_blue_pastel">#CEE5FF</color>
+    <color name="light_green_pastel">#DEFDE0</color>
+    <color name="light_pink_pastel">#FBBECB</color>
+    <color name="light_yellow_pastel">#FFFFA5</color>
+    <color name="light_gray">#EAEAEA</color>
+    <color name="violet">#330066</color>
+
+    <color name="pie1">#ff8080</color>
+    <color name="pie2">#ffaa80</color>
+    <color name="pie3">#ffd580</color>
+    <color name="pie4">#ffff80</color>
+    <color name="pie5">#d5ff80</color>
+    <color name="pie6">#aaff80</color>
+    <color name="pie7">#80ff80</color>
+    <color name="pie8">#80ffaa</color>
+    <color name="pie9">#80ffd5</color>
+    <color name="pie10">#80ffff</color>
+    <color name="pie11">#80d5ff</color>
+    <color name="pie12">#80aaff</color>
+    <color name="pie13">#8080ff</color>
+    <color name="pie14">#aa80ff</color>
+    <color name="pie15">#d580ff</color>
+    <color name="pie16">#ff80ff</color>
+    <color name="pie17">#ff80d5</color>
+    <color name="pie18">#ff80aa</color>
+
 </resources>
