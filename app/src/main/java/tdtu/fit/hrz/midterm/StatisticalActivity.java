@@ -42,6 +42,8 @@ public class StatisticalActivity extends AppCompatActivityModified implements Ca
     private TextView info;
     private PieChart pieChart;
     TransactionDAO transactionDAO = TransactionDAO.getInstance();
+    private ArrayList<Transaction> expenseList;
+    private ArrayList<Transaction> incomeList;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -53,12 +55,12 @@ public class StatisticalActivity extends AppCompatActivityModified implements Ca
         filterBtn = findViewById(R.id.filterBtn);
         info = findViewById(R.id.textView);
 
-        //all transaction list
-        ArrayList<Transaction> allTransactions =
-                transactionDAO.getTransactionListCopy();
+        //income list
+        incomeList = transactionDAO.filterByCategory(TransactionCategory.INCOME_GIFT);
+        incomeList.addAll(transactionDAO.filterByCategory(TransactionCategory.INCOME_SALARY));
 
         //exp list
-        ArrayList<Transaction> expenseList = transactionDAO.getTransactionListCopy();
+        expenseList = transactionDAO.getTransactionListCopy();
         Iterator<Transaction> iterator = expenseList.iterator();
         while (iterator.hasNext()) {
             Transaction expense = iterator.next();
@@ -67,11 +69,28 @@ public class StatisticalActivity extends AppCompatActivityModified implements Ca
             }
         }
 
+        //receive intent bundle
+        Bundle extras = getIntent().getExtras();
+        String str;
+
+        if (extras != null) {
+            str = extras.getString("transaction_id");
+        } else {
+            str = "GENERAL";
+        }
+
+        TransactionCategory preSelectedCategory = TransactionCategory.valueOf(str);
+
         //render the recycler view
         mTransactionAdapter = new TransactionRCVAdapter(
-                this, allTransactions, R.layout.transaction_cardview_item_rcv);
+                this, transactionDAO.filterByCategory(preSelectedCategory), R.layout.transaction_cardview_item_rcv);
         mRecyclerView.setAdapter(mTransactionAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        //render TextView
+        String defaultPercentage = getPercentageOfCategory(preSelectedCategory);
+
+        info.setText("Percentage of this kind: " + defaultPercentage + "%");
 
         //======================Bind category to color
         //category list
@@ -135,22 +154,7 @@ public class StatisticalActivity extends AppCompatActivityModified implements Ca
                     mRecyclerView.setAdapter(mTransactionAdapter);
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(StatisticalActivity.this));
 
-                    DecimalFormat df = new DecimalFormat("#.##");
-//                    String percentage = df.format(
-//                        (float) transactionDAO.filterByCategory(selectedCategory).size()/
-//                                transactionDAO.getTransactionList().size()*100);
-
-                    String percentage = "?";
-                    if (!transactionDAO.isIncome(selectedCategory)) {
-                        percentage = df.format(
-                                (float) transactionDAO.calculateTotalSpent(transactionsOfSelectedCategory)/
-                                        transactionDAO.calculateTotalSpent(expenseList)*100);
-                    } else {
-                        ArrayList<Transaction> incomeList = transactionDAO.filterByCategory(TransactionCategory.INCOME_GIFT);
-                        incomeList.addAll(transactionDAO.filterByCategory(TransactionCategory.INCOME_SALARY));
-                        percentage = df.format( (float) transactionDAO.calculateTotalSpent(transactionsOfSelectedCategory) /
-                                                            transactionDAO.calculateTotalSpent(incomeList) * 100);
-                    }
+                    String percentage = getPercentageOfCategory(selectedCategory);
                     info.setText("Percentage of this kind: " + percentage + "%");
                 }
             }
@@ -163,7 +167,6 @@ public class StatisticalActivity extends AppCompatActivityModified implements Ca
         // Create a list of entries
         ArrayList<PieEntry> entries = new ArrayList<>();
         for (TransactionCategory category : categoryColors.keySet()) {
-//            float percentage = (float)transactionDAO.filterByCategory(category).size() / transactionDAO.getTransactionList().size() * 100;
             if (!transactionDAO.isIncome(category)) {
                 float percentage = (float)transactionDAO.calculateTotalSpent(transactionDAO.filterByCategory(category)) / transactionDAO.calculateTotalSpent(expenseList) * 100;
                 entries.add(new PieEntry(percentage));
@@ -213,5 +216,26 @@ public class StatisticalActivity extends AppCompatActivityModified implements Ca
     @Override
     public void onItemClick(TransactionCategory category) {
         selectedCategory = category;
+    }
+
+    private String getPercentageOfCategory(TransactionCategory category) {
+        String percentage = "?";
+
+        ArrayList<Transaction> transactionsOfSelectedCategory =
+                transactionDAO.filterByCategory(category);
+
+        DecimalFormat df = new DecimalFormat("#.##");
+
+        if (!transactionDAO.isIncome(category)) {
+            percentage = df.format(
+                    (float) transactionDAO.calculateTotalSpent(transactionsOfSelectedCategory)/
+                            transactionDAO.calculateTotalSpent(expenseList)*100);
+        } else {
+
+            percentage = df.format( (float) transactionDAO.calculateTotalSpent(transactionsOfSelectedCategory) /
+                    transactionDAO.calculateTotalSpent(incomeList) * 100);
+        }
+
+        return percentage;
     }
 }
